@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7528.3" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dDq-qC-Vzo">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7518.3"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="q0P-xf-OlK">
+            <objects>
+                <navigationController storyboardIdentifier="SecondaryNav" id="Ted-dQ-xP9" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hxs-bA-lrD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Y5Q-nO-MdW" kind="relationship" relationship="rootViewController" id="E09-eU-yfY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4dp-7S-Zag" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2248" y="-379"/>
+        </scene>
+        <!--Story Detail View Controller-->
+        <scene sceneID="Lzf-FI-cdm">
+            <objects>
+                <viewController storyboardIdentifier="StoryDetail" id="Y5Q-nO-MdW" customClass="StoryDetailViewController" customModule="MyDay" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eKc-og-WWW"/>
+                        <viewControllerLayoutGuide type="bottom" id="UbF-q1-0Nc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Bnq-dV-6xp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="kAS-nf-o2a">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="kSv-l9-oGo">
+                            <connections>
+                                <segue destination="eRD-u6-3a0" kind="unwind" unwindAction="goback:" id="Jmd-SO-Egx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Bw-o8-GH0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="eRD-u6-3a0" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-1580" y="-420"/>
+        </scene>
+        <!--My Day-->
+        <scene sceneID="X91-gd-XUo">
+            <objects>
+                <tableViewController storyboardIdentifier="SelectionV" title="My Day" id="jIO-I1-2Xi" customClass="SelectionTableViewController" customModule="MyDay" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vLW-J9-o88">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="selCell" textLabel="Xfk-Gr-QM6" detailTextLabel="tet-ru-dLN" style="IBUITableViewCellStyleSubtitle" id="OAH-Yg-ogi" customClass="SelectionViewCell" customModule="MyDay" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OAH-Yg-ogi" id="QI0-SN-hGN">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xfk-Gr-QM6">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tet-ru-dLN">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="selectionSubTitle" destination="tet-ru-dLN" id="utD-Et-c6S"/>
+                                    <outlet property="selectionTitle" destination="Xfk-Gr-QM6" id="IxS-k3-LmW"/>
+                                    <segue destination="Ted-dQ-xP9" kind="showDetail" identifier="showDetail" id="ifx-wz-z5o"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="jIO-I1-2Xi" id="QfF-nM-BeO"/>
+                            <outlet property="delegate" destination="jIO-I1-2Xi" id="Xgs-2B-gXY"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="My Day" id="owk-PN-K5V">
+                        <barButtonItem key="leftBarButtonItem" title="DayStats" id="iZQ-zU-1Z8">
+                            <connections>
+                                <action selector="showDayStats:" destination="jIO-I1-2Xi" id="g4x-SN-ZMX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="jTi-Di-1ux" kind="presentation" identifier="showStats" id="ptZ-o5-4h6"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4fH-F6-1Oc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1528" y="269"/>
+        </scene>
+        <!--Day Stats View Controller-->
+        <scene sceneID="BTl-ov-XRu">
+            <objects>
+                <viewController id="jTi-Di-1ux" customClass="DayStatsViewController" customModule="MyDay" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TPH-JY-Wrc"/>
+                        <viewControllerLayoutGuide type="bottom" id="y7m-1q-p6g"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lJQ-o8-lRp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IUi-NP-y7l">
+                                <rect key="frame" x="25" y="28" width="550" height="96"/>
+                                <subviews>
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="8L9-7Z-CHy">
+                                        <rect key="frame" x="-2" y="46" width="100" height="31"/>
+                                        <connections>
+                                            <action selector="yearSlider:" destination="jTi-Di-1ux" eventType="valueChanged" id="pjM-qb-PdU"/>
+                                        </connections>
+                                    </slider>
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="12" translatesAutoresizingMaskIntoConstraints="NO" id="LVX-rm-haJ">
+                                        <rect key="frame" x="107" y="46" width="100" height="31"/>
+                                        <connections>
+                                            <action selector="monthSlider:" destination="jTi-Di-1ux" eventType="valueChanged" id="poa-Jv-MG8"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Years" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jjt-Wx-FtU">
+                                        <rect key="frame" x="0.0" y="17" width="96" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" fixedFrame="YES" text="Months" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89D-6d-71g">
+                                        <rect key="frame" x="104" y="17" width="96" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="30" translatesAutoresizingMaskIntoConstraints="NO" id="RjP-mb-DAl">
+                                        <rect key="frame" x="225" y="46" width="100" height="31"/>
+                                        <connections>
+                                            <action selector="daySlider:" destination="jTi-Di-1ux" eventType="valueChanged" id="pLh-vc-TdV"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALV-1A-L5e">
+                                        <rect key="frame" x="227" y="17" width="96" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.5780158594" green="0.78517567460000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOW-lh-XUi">
+                                <rect key="frame" x="251" y="132" width="98" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Update Graph">
+                                    <color key="titleColor" red="0.38016188169999998" green="0.55232007579999998" blue="0.38477571379999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aCI-I7-s1H">
+                                <rect key="frame" x="25" y="170" width="550" height="287"/>
+                                <color key="backgroundColor" red="1" green="0.92442775170000002" blue="0.75205678509999996" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.85031960230000003" green="0.035014548749999999" blue="0.19564606849999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="y7m-1q-p6g" firstAttribute="top" secondItem="aCI-I7-s1H" secondAttribute="bottom" constant="143" id="0YM-la-40s"/>
+                            <constraint firstItem="aCI-I7-s1H" firstAttribute="top" secondItem="HOW-lh-XUi" secondAttribute="bottom" constant="8" symbolic="YES" id="Hhz-Px-DZo"/>
+                            <constraint firstItem="HOW-lh-XUi" firstAttribute="centerX" secondItem="IUi-NP-y7l" secondAttribute="centerX" id="UNe-QC-Ym5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aCI-I7-s1H" secondAttribute="trailing" constant="30" id="Ugi-MT-wmX"/>
+                            <constraint firstItem="aCI-I7-s1H" firstAttribute="trailing" secondItem="IUi-NP-y7l" secondAttribute="trailing" id="bPx-Bs-Mnx"/>
+                            <constraint firstItem="aCI-I7-s1H" firstAttribute="leading" secondItem="lJQ-o8-lRp" secondAttribute="leadingMargin" constant="46" id="etC-k0-iz9"/>
+                            <constraint firstItem="HOW-lh-XUi" firstAttribute="top" secondItem="IUi-NP-y7l" secondAttribute="bottom" constant="8" symbolic="YES" id="fGc-iE-h8t"/>
+                            <constraint firstItem="aCI-I7-s1H" firstAttribute="leading" secondItem="lJQ-o8-lRp" secondAttribute="leadingMargin" constant="9" id="kR2-dU-W9v"/>
+                            <constraint firstItem="aCI-I7-s1H" firstAttribute="leading" secondItem="IUi-NP-y7l" secondAttribute="leading" id="q89-OP-KKD"/>
+                            <constraint firstItem="IUi-NP-y7l" firstAttribute="top" secondItem="TPH-JY-Wrc" secondAttribute="bottom" constant="8" symbolic="YES" id="sD8-iX-b1r"/>
+                            <constraint firstAttribute="bottom" secondItem="IUi-NP-y7l" secondAttribute="bottom" constant="476" id="xc7-Bp-iid"/>
+                            <constraint firstItem="aCI-I7-s1H" firstAttribute="centerX" secondItem="lJQ-o8-lRp" secondAttribute="centerX" id="xzX-c4-iXR"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Ugi-MT-wmX"/>
+                                <exclude reference="etC-k0-iz9"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="dayLabel" destination="ALV-1A-L5e" id="FZv-52-gbV"/>
+                        <outlet property="daySlider" destination="RjP-mb-DAl" id="pjX-Yq-iti"/>
+                        <outlet property="graphView" destination="aCI-I7-s1H" id="3qS-Se-VTG"/>
+                        <outlet property="monthLabel" destination="89D-6d-71g" id="hHE-mM-VHS"/>
+                        <outlet property="monthSlider" destination="LVX-rm-haJ" id="HQ4-TA-CcA"/>
+                        <outlet property="yearLable" destination="Jjt-Wx-FtU" id="FE0-eP-oLT"/>
+                        <outlet property="yearsSlider" destination="8L9-7Z-CHy" id="inG-5H-5hy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v62-xE-xqX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-854" y="-54"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="A08-Ix-TAi">
+            <objects>
+                <navigationController storyboardIdentifier="PrimaryNav" id="dDq-qC-Vzo" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="75G-2L-yi2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="jIO-I1-2Xi" kind="relationship" relationship="rootViewController" id="XrP-Tg-dnI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z2i-OH-Xxk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2206" y="291"/>
+        </scene>
+    </scenes>
+</document>

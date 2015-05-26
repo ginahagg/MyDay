@@ -1,0 +1,494 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F276B1FC1B05B06400D08B54 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276B1FB1B05B06400D08B54 /* CircleView.swift */; };
+		F276B1FE1B05BD7C00D08B54 /* CircleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F276B1FD1B05BD7C00D08B54 /* CircleData.swift */; };
+		F2806B401B03FBDE00562653 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2806B3F1B03FBDE00562653 /* AppDelegate.swift */; };
+		F2806B431B03FBDE00562653 /* MyDay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F2806B411B03FBDE00562653 /* MyDay.xcdatamodeld */; };
+		F2806B481B03FBDF00562653 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2806B461B03FBDF00562653 /* Main.storyboard */; };
+		F2806B4A1B03FBDF00562653 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2806B491B03FBDF00562653 /* Images.xcassets */; };
+		F2806B4D1B03FBDF00562653 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2806B4B1B03FBDF00562653 /* LaunchScreen.xib */; };
+		F2806B591B03FBDF00562653 /* MyDayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2806B581B03FBDF00562653 /* MyDayTests.swift */; };
+		F2806B651B03FFF600562653 /* MyStoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2806B641B03FFF600562653 /* MyStoryViewCell.swift */; };
+		F2806B671B0423F500562653 /* SelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2806B661B0423F500562653 /* SelectionTableViewController.swift */; };
+		F2806B691B0424B600562653 /* SelectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2806B681B0424B600562653 /* SelectionViewCell.swift */; };
+		F2806B6B1B04382000562653 /* StoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2806B6A1B04382000562653 /* StoryDetailViewController.swift */; };
+		F2827B801B1305E500FA41CA /* NSDate+Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2827B7F1B1305E500FA41CA /* NSDate+Main.swift */; };
+		F28F6ED31B13BB9D003DFC13 /* MyDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28F6ED21B13BB9D003DFC13 /* MyDay.swift */; };
+		F28F6ED51B13F3D2003DFC13 /* DayStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28F6ED41B13F3D2003DFC13 /* DayStatsViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F2806B531B03FBDF00562653 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2806B321B03FBDE00562653 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F2806B391B03FBDE00562653;
+			remoteInfo = MyDay;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F276B1FB1B05B06400D08B54 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		F276B1FD1B05BD7C00D08B54 /* CircleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleData.swift; sourceTree = "<group>"; };
+		F2806B3A1B03FBDE00562653 /* MyDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2806B3E1B03FBDE00562653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2806B3F1B03FBDE00562653 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F2806B421B03FBDE00562653 /* MyDay.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyDay.xcdatamodel; sourceTree = "<group>"; };
+		F2806B471B03FBDF00562653 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F2806B491B03FBDF00562653 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F2806B4C1B03FBDF00562653 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		F2806B521B03FBDF00562653 /* MyDayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyDayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2806B571B03FBDF00562653 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2806B581B03FBDF00562653 /* MyDayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDayTests.swift; sourceTree = "<group>"; };
+		F2806B641B03FFF600562653 /* MyStoryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyStoryViewCell.swift; sourceTree = "<group>"; };
+		F2806B661B0423F500562653 /* SelectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionTableViewController.swift; sourceTree = "<group>"; };
+		F2806B681B0424B600562653 /* SelectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionViewCell.swift; sourceTree = "<group>"; };
+		F2806B6A1B04382000562653 /* StoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryDetailViewController.swift; sourceTree = "<group>"; };
+		F2827B7F1B1305E500FA41CA /* NSDate+Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Main.swift"; sourceTree = "<group>"; };
+		F28F6ECD1B13BAB6003DFC13 /* MyDay-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyDay-Bridging-Header.h"; sourceTree = "<group>"; };
+		F28F6ED11B13BB09003DFC13 /* MyDayModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyDayModel.xcdatamodel; sourceTree = "<group>"; };
+		F28F6ED21B13BB9D003DFC13 /* MyDay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyDay.swift; path = MyDay/MyDay.swift; sourceTree = "<group>"; };
+		F28F6ED41B13F3D2003DFC13 /* DayStatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayStatsViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F2806B371B03FBDE00562653 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2806B4F1B03FBDF00562653 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BF77020495F63FDC2C852CD5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F2806B311B03FBDE00562653 = {
+			isa = PBXGroup;
+			children = (
+				F28F6ED21B13BB9D003DFC13 /* MyDay.swift */,
+				F2806B3C1B03FBDE00562653 /* MyDay */,
+				F2806B551B03FBDF00562653 /* MyDayTests */,
+				F2806B3B1B03FBDE00562653 /* Products */,
+				BF77020495F63FDC2C852CD5 /* Frameworks */,
+				F28F6ECD1B13BAB6003DFC13 /* MyDay-Bridging-Header.h */,
+			);
+			sourceTree = "<group>";
+		};
+		F2806B3B1B03FBDE00562653 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F2806B3A1B03FBDE00562653 /* MyDay.app */,
+				F2806B521B03FBDF00562653 /* MyDayTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F2806B3C1B03FBDE00562653 /* MyDay */ = {
+			isa = PBXGroup;
+			children = (
+				F2806B461B03FBDF00562653 /* Main.storyboard */,
+				F28F6ED41B13F3D2003DFC13 /* DayStatsViewController.swift */,
+				F2806B6A1B04382000562653 /* StoryDetailViewController.swift */,
+				F276B1FD1B05BD7C00D08B54 /* CircleData.swift */,
+				F2806B681B0424B600562653 /* SelectionViewCell.swift */,
+				F2806B661B0423F500562653 /* SelectionTableViewController.swift */,
+				F276B1FB1B05B06400D08B54 /* CircleView.swift */,
+				F2806B641B03FFF600562653 /* MyStoryViewCell.swift */,
+				F2806B491B03FBDF00562653 /* Images.xcassets */,
+				F2806B3D1B03FBDE00562653 /* Supporting Files */,
+			);
+			path = MyDay;
+			sourceTree = "<group>";
+		};
+		F2806B3D1B03FBDE00562653 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F2806B3F1B03FBDE00562653 /* AppDelegate.swift */,
+				F2806B411B03FBDE00562653 /* MyDay.xcdatamodeld */,
+				F2827B7F1B1305E500FA41CA /* NSDate+Main.swift */,
+				F2806B4B1B03FBDF00562653 /* LaunchScreen.xib */,
+				F2806B3E1B03FBDE00562653 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F2806B551B03FBDF00562653 /* MyDayTests */ = {
+			isa = PBXGroup;
+			children = (
+				F2806B581B03FBDF00562653 /* MyDayTests.swift */,
+				F2806B561B03FBDF00562653 /* Supporting Files */,
+			);
+			path = MyDayTests;
+			sourceTree = "<group>";
+		};
+		F2806B561B03FBDF00562653 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F2806B571B03FBDF00562653 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F2806B391B03FBDE00562653 /* MyDay */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2806B5C1B03FBDF00562653 /* Build configuration list for PBXNativeTarget "MyDay" */;
+			buildPhases = (
+				F2806B361B03FBDE00562653 /* Sources */,
+				F2806B371B03FBDE00562653 /* Frameworks */,
+				F2806B381B03FBDE00562653 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyDay;
+			productName = MyDay;
+			productReference = F2806B3A1B03FBDE00562653 /* MyDay.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F2806B511B03FBDF00562653 /* MyDayTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2806B5F1B03FBDF00562653 /* Build configuration list for PBXNativeTarget "MyDayTests" */;
+			buildPhases = (
+				F2806B4E1B03FBDF00562653 /* Sources */,
+				F2806B4F1B03FBDF00562653 /* Frameworks */,
+				F2806B501B03FBDF00562653 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F2806B541B03FBDF00562653 /* PBXTargetDependency */,
+			);
+			name = MyDayTests;
+			productName = MyDayTests;
+			productReference = F2806B521B03FBDF00562653 /* MyDayTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F2806B321B03FBDE00562653 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Gina Hagg";
+				TargetAttributes = {
+					F2806B391B03FBDE00562653 = {
+						CreatedOnToolsVersion = 6.3;
+					};
+					F2806B511B03FBDF00562653 = {
+						CreatedOnToolsVersion = 6.3;
+						TestTargetID = F2806B391B03FBDE00562653;
+					};
+				};
+			};
+			buildConfigurationList = F2806B351B03FBDE00562653 /* Build configuration list for PBXProject "MyDay" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F2806B311B03FBDE00562653;
+			productRefGroup = F2806B3B1B03FBDE00562653 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F2806B391B03FBDE00562653 /* MyDay */,
+				F2806B511B03FBDF00562653 /* MyDayTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F2806B381B03FBDE00562653 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2806B481B03FBDF00562653 /* Main.storyboard in Resources */,
+				F2806B4D1B03FBDF00562653 /* LaunchScreen.xib in Resources */,
+				F2806B4A1B03FBDF00562653 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2806B501B03FBDF00562653 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F2806B361B03FBDE00562653 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F276B1FC1B05B06400D08B54 /* CircleView.swift in Sources */,
+				F2806B691B0424B600562653 /* SelectionViewCell.swift in Sources */,
+				F2806B651B03FFF600562653 /* MyStoryViewCell.swift in Sources */,
+				F2806B671B0423F500562653 /* SelectionTableViewController.swift in Sources */,
+				F2806B431B03FBDE00562653 /* MyDay.xcdatamodeld in Sources */,
+				F2806B6B1B04382000562653 /* StoryDetailViewController.swift in Sources */,
+				F28F6ED51B13F3D2003DFC13 /* DayStatsViewController.swift in Sources */,
+				F28F6ED31B13BB9D003DFC13 /* MyDay.swift in Sources */,
+				F2806B401B03FBDE00562653 /* AppDelegate.swift in Sources */,
+				F2827B801B1305E500FA41CA /* NSDate+Main.swift in Sources */,
+				F276B1FE1B05BD7C00D08B54 /* CircleData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2806B4E1B03FBDF00562653 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2806B591B03FBDF00562653 /* MyDayTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F2806B541B03FBDF00562653 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F2806B391B03FBDE00562653 /* MyDay */;
+			targetProxy = F2806B531B03FBDF00562653 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F2806B461B03FBDF00562653 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2806B471B03FBDF00562653 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F2806B4B1B03FBDF00562653 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2806B4C1B03FBDF00562653 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F2806B5A1B03FBDF00562653 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F2806B5B1B03FBDF00562653 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F2806B5D1B03FBDF00562653 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = MyDay/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyDay-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F2806B5E1B03FBDF00562653 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				INFOPLIST_FILE = MyDay/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyDay-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		F2806B601B03FBDF00562653 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MyDayTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyDay.app/MyDay";
+			};
+			name = Debug;
+		};
+		F2806B611B03FBDF00562653 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = MyDayTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyDay.app/MyDay";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F2806B351B03FBDE00562653 /* Build configuration list for PBXProject "MyDay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2806B5A1B03FBDF00562653 /* Debug */,
+				F2806B5B1B03FBDF00562653 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2806B5C1B03FBDF00562653 /* Build configuration list for PBXNativeTarget "MyDay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2806B5D1B03FBDF00562653 /* Debug */,
+				F2806B5E1B03FBDF00562653 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2806B5F1B03FBDF00562653 /* Build configuration list for PBXNativeTarget "MyDayTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2806B601B03FBDF00562653 /* Debug */,
+				F2806B611B03FBDF00562653 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F2806B411B03FBDE00562653 /* MyDay.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F28F6ED11B13BB09003DFC13 /* MyDayModel.xcdatamodel */,
+				F2806B421B03FBDE00562653 /* MyDay.xcdatamodel */,
+			);
+			currentVersion = F2806B421B03FBDE00562653 /* MyDay.xcdatamodel */;
+			path = MyDay.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = F2806B321B03FBDE00562653 /* Project object */;
+}
