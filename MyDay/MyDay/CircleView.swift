@@ -134,7 +134,7 @@ class CircleView: UIView {
             println("i am touched at \(circleCenter.x) and \(circleCenter.y)")
             if(CGRectContainsPoint(myRect,circleCenter ))
             {
-                println("you touched my circle at \(self.frame.origin.x), color: \(self.colorr), text:\(self.text)")
+                //println("you touched my circle at \(self.frame.origin.x), color: \(self.colorr), text:\(self.text)")
                 var vController = self.superview?.nextResponder() as! StoryDetailViewController
                 var selectedItem = selectedMood(text:self.text, color:self.colorr)
                 vController.selected = selectedItem

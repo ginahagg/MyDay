@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7528.3" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dDq-qC-Vzo">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7518.3"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -88,7 +89,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Day" id="owk-PN-K5V">
-                        <barButtonItem key="leftBarButtonItem" title="DayStats" id="iZQ-zU-1Z8">
+                        <barButtonItem key="leftBarButtonItem" image="histogram" id="iZQ-zU-1Z8">
                             <connections>
                                 <action selector="showDayStats:" destination="jIO-I1-2Xi" id="g4x-SN-ZMX"/>
                             </connections>
@@ -115,73 +116,105 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IUi-NP-y7l">
-                                <rect key="frame" x="25" y="28" width="550" height="96"/>
+                                <rect key="frame" x="16" y="20" width="568" height="72"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="8L9-7Z-CHy">
-                                        <rect key="frame" x="-2" y="46" width="100" height="31"/>
+                                        <rect key="frame" x="0.0" y="29" width="100" height="31"/>
+                                        <color key="maximumTrackTintColor" red="1" green="0.34280166379999999" blue="0.47829588639999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="thumbTintColor" red="0.38016188169999998" green="0.55232007579999998" blue="0.38477571379999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="yearSlider:" destination="jTi-Di-1ux" eventType="valueChanged" id="pjM-qb-PdU"/>
                                         </connections>
                                     </slider>
                                     <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="12" translatesAutoresizingMaskIntoConstraints="NO" id="LVX-rm-haJ">
-                                        <rect key="frame" x="107" y="46" width="100" height="31"/>
+                                        <rect key="frame" x="107" y="29" width="100" height="31"/>
+                                        <color key="maximumTrackTintColor" red="1" green="0.34280166379999999" blue="0.47829588639999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="thumbTintColor" red="0.63333696220000002" green="0.7111270287" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="monthSlider:" destination="jTi-Di-1ux" eventType="valueChanged" id="poa-Jv-MG8"/>
                                         </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Years" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jjt-Wx-FtU">
-                                        <rect key="frame" x="0.0" y="17" width="96" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="96" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" fixedFrame="YES" text="Months" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89D-6d-71g">
-                                        <rect key="frame" x="104" y="17" width="96" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="104" y="0.0" width="96" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="30" translatesAutoresizingMaskIntoConstraints="NO" id="RjP-mb-DAl">
-                                        <rect key="frame" x="225" y="46" width="100" height="31"/>
+                                        <rect key="frame" x="225" y="29" width="100" height="31"/>
+                                        <color key="minimumTrackTintColor" red="0.38016188169999998" green="0.55232007579999998" blue="0.38477571379999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="maximumTrackTintColor" red="0.38016188169999998" green="0.55232007579999998" blue="0.38477571379999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="thumbTintColor" red="1" green="0.34280166379999999" blue="0.47829588639999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="daySlider:" destination="jTi-Di-1ux" eventType="valueChanged" id="pLh-vc-TdV"/>
                                         </connections>
                                     </slider>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Days" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALV-1A-L5e">
-                                        <rect key="frame" x="227" y="17" width="96" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="227" y="0.0" width="96" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.5780158594" green="0.78517567460000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOW-lh-XUi">
-                                <rect key="frame" x="251" y="132" width="98" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Update Graph">
-                                    <color key="titleColor" red="0.38016188169999998" green="0.55232007579999998" blue="0.38477571379999997" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                            </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aCI-I7-s1H">
-                                <rect key="frame" x="25" y="170" width="550" height="287"/>
                                 <color key="backgroundColor" red="1" green="0.92442775170000002" blue="0.75205678509999996" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOW-lh-XUi">
+                                <rect key="frame" x="16" y="100" width="98" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="98" id="3sV-4b-gfi"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" backgroundImage="update-red">
+                                    <color key="titleColor" red="0.38016188169999998" green="0.55232007579999998" blue="0.38477571379999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="updateGraph:" destination="jTi-Di-1ux" eventType="touchUpInside" id="sDv-lz-0bf"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aCI-I7-s1H" customClass="ScatterChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="140" width="568" height="271"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OZC-Ab-tvU">
+                                <rect key="frame" x="486" y="100" width="98" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="98" id="FYr-a8-bBj"/>
+                                    <constraint firstAttribute="height" constant="30" id="Qgd-Oa-Vt6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" backgroundImage="goback">
+                                    <color key="titleColor" red="0.38016188169999998" green="0.55232007579999998" blue="0.38477571379999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Hvk-fz-6Qo" kind="unwind" unwindAction="goback:" id="Vz7-VK-yvh"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.85031960230000003" green="0.035014548749999999" blue="0.19564606849999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.9690606236" green="1" blue="0.94016314619999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="y7m-1q-p6g" firstAttribute="top" secondItem="aCI-I7-s1H" secondAttribute="bottom" constant="143" id="0YM-la-40s"/>
-                            <constraint firstItem="aCI-I7-s1H" firstAttribute="top" secondItem="HOW-lh-XUi" secondAttribute="bottom" constant="8" symbolic="YES" id="Hhz-Px-DZo"/>
-                            <constraint firstItem="HOW-lh-XUi" firstAttribute="centerX" secondItem="IUi-NP-y7l" secondAttribute="centerX" id="UNe-QC-Ym5"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="aCI-I7-s1H" secondAttribute="trailing" constant="30" id="Ugi-MT-wmX"/>
-                            <constraint firstItem="aCI-I7-s1H" firstAttribute="trailing" secondItem="IUi-NP-y7l" secondAttribute="trailing" id="bPx-Bs-Mnx"/>
+                            <constraint firstItem="aCI-I7-s1H" firstAttribute="leading" secondItem="lJQ-o8-lRp" secondAttribute="leadingMargin" id="1Qy-R7-in2"/>
+                            <constraint firstItem="y7m-1q-p6g" firstAttribute="top" secondItem="aCI-I7-s1H" secondAttribute="bottom" constant="189" id="6Tv-61-4O5"/>
+                            <constraint firstItem="aCI-I7-s1H" firstAttribute="top" secondItem="lJQ-o8-lRp" secondAttribute="top" constant="140" id="8Xz-fC-8eN"/>
+                            <constraint firstItem="OZC-Ab-tvU" firstAttribute="baseline" secondItem="HOW-lh-XUi" secondAttribute="baseline" id="F4A-4Z-q1D"/>
+                            <constraint firstItem="OZC-Ab-tvU" firstAttribute="top" secondItem="HOW-lh-XUi" secondAttribute="top" id="H4b-FZ-Dok"/>
+                            <constraint firstItem="HOW-lh-XUi" firstAttribute="leading" secondItem="IUi-NP-y7l" secondAttribute="leading" id="MY0-Nf-hLP"/>
+                            <constraint firstItem="OZC-Ab-tvU" firstAttribute="bottom" secondItem="HOW-lh-XUi" secondAttribute="bottom" id="U3v-Bm-iPD"/>
+                            <constraint firstItem="aCI-I7-s1H" firstAttribute="trailing" secondItem="OZC-Ab-tvU" secondAttribute="trailing" id="UTw-4K-naJ"/>
+                            <constraint firstItem="aCI-I7-s1H" firstAttribute="top" secondItem="OZC-Ab-tvU" secondAttribute="bottom" constant="10" id="UU3-5k-5n9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aCI-I7-s1H" secondAttribute="trailing" id="Ugi-MT-wmX"/>
+                            <constraint firstItem="aCI-I7-s1H" firstAttribute="leading" secondItem="HOW-lh-XUi" secondAttribute="leading" id="b0E-hB-3c3"/>
                             <constraint firstItem="aCI-I7-s1H" firstAttribute="leading" secondItem="lJQ-o8-lRp" secondAttribute="leadingMargin" constant="46" id="etC-k0-iz9"/>
-                            <constraint firstItem="HOW-lh-XUi" firstAttribute="top" secondItem="IUi-NP-y7l" secondAttribute="bottom" constant="8" symbolic="YES" id="fGc-iE-h8t"/>
-                            <constraint firstItem="aCI-I7-s1H" firstAttribute="leading" secondItem="lJQ-o8-lRp" secondAttribute="leadingMargin" constant="9" id="kR2-dU-W9v"/>
-                            <constraint firstItem="aCI-I7-s1H" firstAttribute="leading" secondItem="IUi-NP-y7l" secondAttribute="leading" id="q89-OP-KKD"/>
-                            <constraint firstItem="IUi-NP-y7l" firstAttribute="top" secondItem="TPH-JY-Wrc" secondAttribute="bottom" constant="8" symbolic="YES" id="sD8-iX-b1r"/>
-                            <constraint firstAttribute="bottom" secondItem="IUi-NP-y7l" secondAttribute="bottom" constant="476" id="xc7-Bp-iid"/>
-                            <constraint firstItem="aCI-I7-s1H" firstAttribute="centerX" secondItem="lJQ-o8-lRp" secondAttribute="centerX" id="xzX-c4-iXR"/>
+                            <constraint firstItem="HOW-lh-XUi" firstAttribute="top" secondItem="IUi-NP-y7l" secondAttribute="bottom" constant="8" symbolic="YES" id="kRc-S2-Z1e"/>
+                            <constraint firstItem="OZC-Ab-tvU" firstAttribute="firstBaseline" secondItem="HOW-lh-XUi" secondAttribute="firstBaseline" id="sUP-gF-FDW"/>
+                            <constraint firstItem="OZC-Ab-tvU" firstAttribute="trailing" secondItem="IUi-NP-y7l" secondAttribute="trailing" id="v7J-NC-LxH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="IUi-NP-y7l" secondAttribute="trailing" id="xeb-z1-jBX"/>
+                            <constraint firstItem="IUi-NP-y7l" firstAttribute="top" secondItem="TPH-JY-Wrc" secondAttribute="bottom" id="z9l-Sk-3xJ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -191,9 +224,9 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="_chartView" destination="aCI-I7-s1H" id="mlW-OU-fcm"/>
                         <outlet property="dayLabel" destination="ALV-1A-L5e" id="FZv-52-gbV"/>
                         <outlet property="daySlider" destination="RjP-mb-DAl" id="pjX-Yq-iti"/>
-                        <outlet property="graphView" destination="aCI-I7-s1H" id="3qS-Se-VTG"/>
                         <outlet property="monthLabel" destination="89D-6d-71g" id="hHE-mM-VHS"/>
                         <outlet property="monthSlider" destination="LVX-rm-haJ" id="HQ4-TA-CcA"/>
                         <outlet property="yearLable" destination="Jjt-Wx-FtU" id="FE0-eP-oLT"/>
@@ -201,6 +234,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v62-xE-xqX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Hvk-fz-6Qo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-854" y="-54"/>
         </scene>
@@ -221,4 +255,9 @@
             <point key="canvasLocation" x="-2206" y="291"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="goback" width="100" height="29"/>
+        <image name="histogram" width="116" height="29"/>
+        <image name="update-red" width="95" height="29"/>
+    </resources>
 </document>
