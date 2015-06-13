@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7541.6" systemVersion="14D136" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Location" representedClassName="SaveMyLocation.Location" syncable="YES">
+        <attribute name="addr" optional="YES" attributeType="String" defaultValueString="212 Lakeshore Ct, Richmond" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="info" optional="YES" attributeType="String" defaultValueString="enter info" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="photo" optional="YES" attributeType="String" defaultValueString="enter photo url" syncable="YES"/>
+        <attribute name="pin" optional="YES" attributeType="String" defaultValueString="red" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Location" positionX="-63" positionY="-18" width="128" height="150"/>
+    </elements>
+</model>
