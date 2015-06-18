@@ -18,7 +18,16 @@ class Location: NSManagedObject {
     @NSManaged var longitude: NSNumber
     @NSManaged var photo: String
     @NSManaged var pin: String
-    @NSManaged var section: String
+    //@NSManaged var section: String
+
+
+    var section: String? {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .ShortStyle
+        formatter.timeStyle = NSDateFormatterStyle.NoStyle
+        var dat = formatter.stringFromDate(self.date)
+        return dat
+        
+    }
 
 }
-

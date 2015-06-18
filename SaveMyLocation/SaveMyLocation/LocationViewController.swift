@@ -84,12 +84,8 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
             println ("saved succesfully \(NSDate()),\(location.coordinate.longitude),\(location.coordinate.latitude)")
         }
         
-        if(isByDate){
-            populateByDate(loc)
-        }
-        else{
-            populateByAddr(loc)
-        }
+        populateByDate(loc)
+        
         self.tableView.reloadData()
     }
     
@@ -148,8 +144,8 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         self.locationManager.requestWhenInUseAuthorization()
         self.tableView.layer.zPosition++
-        
-        fetchLocationsByCriteria("Date")
+        fetchLocations()
+        //fetchLocationsByCriteria("Date")
         println("viewdidload: isByDate: \(isByDate)")
         
     }
@@ -177,7 +173,6 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
                 for loc in locations {
                     var dt = loc.date
                     populateByDate(loc)
-                    populateByAddr(loc)                    
                 }
 
             }
@@ -186,27 +181,7 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
             }
     }
     
-    func populateByAddr(loc: Location){
-        var locs = NSMutableArray()
-        var addr = loc.addr
-         var dt = loc.date
-        var keys = locDictByAddr.allKeys as! [String]
-        /*let formatter = NSDateFormatter()
-        formatter.dateStyle = .ShortStyle
-        formatter.timeStyle = .ShortStyle
-        var date = formatter.stringFromDate(dt)*/
-        
-        if find(keys, addr) == nil{
-            locs = NSMutableArray()
-        }
-        else{
-            locs = locDictByAddr.valueForKey(addr) as! NSMutableArray
-        }
-        var index = locs.count > 0 ? locs.count : 0
-        locs.insertObject(loc, atIndex: index)
-        locDictByAddr[addr] = locs
-
-    }
+    
     
     func populateByDate(loc: Location) -> (index: Int, section: String , exists: Bool){
         var dt = loc.date
@@ -316,6 +291,84 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         cell.detailTextLabel!.text = loc.addr
         return cell
     }
+    
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+        
+        switch type {
+        case NSFetchedResultsChangeType.Insert:
+            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: UITableViewRowAnimation.Fade)
+            break
+        case NSFetchedResultsChangeType.Delete:
+            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: UITableViewRowAnimation.Fade)
+            break
+        case NSFetchedResultsChangeType.Move:
+            break
+        case NSFetchedResultsChangeType.Update:
+            break
+        default:
+            break
+        }
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+        }
+        
+        switch editingStyle {
+        case .Delete:
+            managedObjectContext?.deleteObject(fetchedResultsController.objectAtIndexPath(indexPath) as! Location)
+            managedObjectContext?.save(nil)
+        case .Insert:
+            break
+        case .None:
+            break
+        }
+        
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        
+        switch type {
+        case NSFetchedResultsChangeType.Insert:
+            tableView.insertRowsAtIndexPaths(NSArray(object: newIndexPath!) as [AnyObject], withRowAnimation: UITableViewRowAnimation.Fade)
+            break
+        case NSFetchedResultsChangeType.Delete:
+            tableView.deleteRowsAtIndexPaths(NSArray(object: indexPath!) as [AnyObject], withRowAnimation: UITableViewRowAnimation.Fade)
+            break
+        case NSFetchedResultsChangeType.Move:
+            tableView.deleteRowsAtIndexPaths(NSArray(object: indexPath!) as [AnyObject], withRowAnimation: UITableViewRowAnimation.Fade)
+            tableView.insertRowsAtIndexPaths(NSArray(object: newIndexPath!) as [AnyObject], withRowAnimation: UITableViewRowAnimation.Fade)
+            break
+        case NSFetchedResultsChangeType.Update:
+            tableView.cellForRowAtIndexPath(indexPath!)
+            break
+        default:
+            break
+        }
+    }
+    
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        tableView.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        tableView.endUpdates()
+    }
+    
+    
+    
+    
+   /* @IBAction func addButtonPressed(sender: UIBarButtonItem) {
+        
+        let newNumber = NSEntityDescription.insertNewObjectForEntityForName("Number", inManagedObjectContext: managedObjectContext!) as Number
+        
+        newNumber.number = NSNumber(unsignedInt: arc4random_uniform(100))
+        
+        var error: NSError?
+        managedObjectContext?.save(&error)
+        
+    }*/
     
     /*override func  tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
          println("cellforrowatindex: isByDate: \(isByDate)")
