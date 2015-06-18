@@ -7,12 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F21844971B2D086D006B7200 /* LandingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21844961B2D086D006B7200 /* LandingController.swift */; };
 		F23975241B27ABF00071F898 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23975231B27ABF00071F898 /* GroupCell.swift */; };
 		F23B03791B280A9900BC124E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23B03781B280A9900BC124E /* UIColorExtension.swift */; };
 		F2617C8E1B1A6D9E00765F49 /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2617C8D1B1A6D9D00765F49 /* LocationAnnotation.swift */; };
 		F273CFF21B28A31700B1A7F2 /* LocationManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F273CFF11B28A31700B1A7F2 /* LocationManagedObject.swift */; };
+		F279A1231B30D1D400E65F90 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F279A1221B30D1D400E65F90 /* ImageViewController.swift */; };
+		F279A1251B30D1E200E65F90 /* GPXViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F279A1241B30D1E200E65F90 /* GPXViewController.swift */; };
+		F279A1271B30D1EF00E65F90 /* EditWaypointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F279A1261B30D1EF00E65F90 /* EditWaypointViewController.swift */; };
+		F279A1291B30D20400E65F90 /* WaypointImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F279A1281B30D20400E65F90 /* WaypointImageViewController.swift */; };
+		F279A12B1B30D28B00E65F90 /* MKGPX.swift in Sources */ = {isa = PBXBuildFile; fileRef = F279A12A1B30D28B00E65F90 /* MKGPX.swift */; };
+		F279A12D1B30D29F00E65F90 /* GPX.swift in Sources */ = {isa = PBXBuildFile; fileRef = F279A12C1B30D29F00E65F90 /* GPX.swift */; };
 		F2A093D61B2A5C0700D3CF33 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A093D51B2A5C0700D3CF33 /* LocationCell.swift */; };
-		F2A093D81B2A5EF300D3CF33 /* FUICellBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A093D71B2A5EF300D3CF33 /* FUICellBackgroundView.swift */; };
 		F2AB76C01B26C13A003F49C1 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB76BF1B26C13A003F49C1 /* LocationViewController.swift */; };
 		F2C08CAA1B19694800F6196E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C08CA91B19694800F6196E /* AppDelegate.swift */; };
 		F2C08CAD1B19694800F6196E /* SaveMyLocation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F2C08CAB1B19694800F6196E /* SaveMyLocation.xcdatamodeld */; };
@@ -21,7 +27,8 @@
 		F2C08CB41B19694800F6196E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2C08CB31B19694800F6196E /* Images.xcassets */; };
 		F2C08CB71B19694800F6196E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2C08CB51B19694800F6196E /* LaunchScreen.xib */; };
 		F2C08CC31B19694800F6196E /* SaveMyLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C08CC21B19694800F6196E /* SaveMyLocationTests.swift */; };
-		F2C08CD21B19964900F6196E /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C08CD11B19964900F6196E /* Location.swift */; };
+		F2DAC10E1B324F7200A11CB6 /* FUICellBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DAC10D1B324F7200A11CB6 /* FUICellBackgroundView.swift */; };
+		F2DAC1121B329C1200A11CB6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DAC1111B329C1200A11CB6 /* Location.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,12 +55,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F21844961B2D086D006B7200 /* LandingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingController.swift; sourceTree = "<group>"; };
 		F23975231B27ABF00071F898 /* GroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 		F23B03781B280A9900BC124E /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		F2617C8D1B1A6D9D00765F49 /* LocationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
 		F273CFF11B28A31700B1A7F2 /* LocationManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagedObject.swift; sourceTree = "<group>"; };
+		F279A1221B30D1D400E65F90 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		F279A1241B30D1E200E65F90 /* GPXViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPXViewController.swift; sourceTree = "<group>"; };
+		F279A1261B30D1EF00E65F90 /* EditWaypointViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditWaypointViewController.swift; sourceTree = "<group>"; };
+		F279A1281B30D20400E65F90 /* WaypointImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointImageViewController.swift; sourceTree = "<group>"; };
+		F279A12A1B30D28B00E65F90 /* MKGPX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKGPX.swift; sourceTree = "<group>"; };
+		F279A12C1B30D29F00E65F90 /* GPX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPX.swift; sourceTree = "<group>"; };
 		F2A093D51B2A5C0700D3CF33 /* LocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
-		F2A093D71B2A5EF300D3CF33 /* FUICellBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FUICellBackgroundView.swift; sourceTree = "<group>"; };
 		F2AB76BF1B26C13A003F49C1 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		F2C08CA41B19694800F6196E /* SaveMyLocation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SaveMyLocation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2C08CA81B19694800F6196E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -66,7 +79,8 @@
 		F2C08CBC1B19694800F6196E /* SaveMyLocationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SaveMyLocationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2C08CC11B19694800F6196E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2C08CC21B19694800F6196E /* SaveMyLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMyLocationTests.swift; sourceTree = "<group>"; };
-		F2C08CD11B19964900F6196E /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Location.swift; path = ../Location.swift; sourceTree = "<group>"; };
+		F2DAC10D1B324F7200A11CB6 /* FUICellBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FUICellBackgroundView.swift; sourceTree = "<group>"; };
+		F2DAC1111B329C1200A11CB6 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +104,7 @@
 		F2C08C9B1B19694800F6196E = {
 			isa = PBXGroup;
 			children = (
+				F2DAC1111B329C1200A11CB6 /* Location.swift */,
 				F2C08CA61B19694800F6196E /* SaveMyLocation */,
 				F2C08CBF1B19694800F6196E /* SaveMyLocationTests */,
 				F2C08CA51B19694800F6196E /* Products */,
@@ -108,19 +123,25 @@
 		F2C08CA61B19694800F6196E /* SaveMyLocation */ = {
 			isa = PBXGroup;
 			children = (
-				F2C08CD11B19964900F6196E /* Location.swift */,
+				F279A12C1B30D29F00E65F90 /* GPX.swift */,
+				F279A12A1B30D28B00E65F90 /* MKGPX.swift */,
+				F279A1281B30D20400E65F90 /* WaypointImageViewController.swift */,
+				F279A1261B30D1EF00E65F90 /* EditWaypointViewController.swift */,
+				F279A1241B30D1E200E65F90 /* GPXViewController.swift */,
+				F279A1221B30D1D400E65F90 /* ImageViewController.swift */,
 				F2C08CA91B19694800F6196E /* AppDelegate.swift */,
 				F2C08CAE1B19694800F6196E /* ViewController.swift */,
 				F2AB76BF1B26C13A003F49C1 /* LocationViewController.swift */,
 				F23B03781B280A9900BC124E /* UIColorExtension.swift */,
 				F23975231B27ABF00071F898 /* GroupCell.swift */,
 				F2A093D51B2A5C0700D3CF33 /* LocationCell.swift */,
-				F2A093D71B2A5EF300D3CF33 /* FUICellBackgroundView.swift */,
 				F2617C8D1B1A6D9D00765F49 /* LocationAnnotation.swift */,
 				F273CFF11B28A31700B1A7F2 /* LocationManagedObject.swift */,
 				F2C08CB01B19694800F6196E /* Main.storyboard */,
+				F21844961B2D086D006B7200 /* LandingController.swift */,
 				F2C08CB31B19694800F6196E /* Images.xcassets */,
 				F2C08CB51B19694800F6196E /* LaunchScreen.xib */,
+				F2DAC10D1B324F7200A11CB6 /* FUICellBackgroundView.swift */,
 				F2C08CAB1B19694800F6196E /* SaveMyLocation.xcdatamodeld */,
 				F2C08CA71B19694800F6196E /* Supporting Files */,
 			);
@@ -271,17 +292,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F279A1251B30D1E200E65F90 /* GPXViewController.swift in Sources */,
 				F23975241B27ABF00071F898 /* GroupCell.swift in Sources */,
 				F2C08CAF1B19694800F6196E /* ViewController.swift in Sources */,
-				F2A093D81B2A5EF300D3CF33 /* FUICellBackgroundView.swift in Sources */,
+				F2DAC10E1B324F7200A11CB6 /* FUICellBackgroundView.swift in Sources */,
+				F2DAC1121B329C1200A11CB6 /* Location.swift in Sources */,
+				F21844971B2D086D006B7200 /* LandingController.swift in Sources */,
 				F2C08CAA1B19694800F6196E /* AppDelegate.swift in Sources */,
-				F2C08CD21B19964900F6196E /* Location.swift in Sources */,
+				F279A1231B30D1D400E65F90 /* ImageViewController.swift in Sources */,
+				F279A1271B30D1EF00E65F90 /* EditWaypointViewController.swift in Sources */,
 				F2AB76C01B26C13A003F49C1 /* LocationViewController.swift in Sources */,
 				F23B03791B280A9900BC124E /* UIColorExtension.swift in Sources */,
+				F279A1291B30D20400E65F90 /* WaypointImageViewController.swift in Sources */,
 				F2A093D61B2A5C0700D3CF33 /* LocationCell.swift in Sources */,
+				F279A12B1B30D28B00E65F90 /* MKGPX.swift in Sources */,
 				F2C08CAD1B19694800F6196E /* SaveMyLocation.xcdatamodeld in Sources */,
 				F273CFF21B28A31700B1A7F2 /* LocationManagedObject.swift in Sources */,
 				F2617C8E1B1A6D9E00765F49 /* LocationAnnotation.swift in Sources */,
+				F279A12D1B30D29F00E65F90 /* GPX.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

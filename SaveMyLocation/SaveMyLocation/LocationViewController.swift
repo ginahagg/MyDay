@@ -10,13 +10,14 @@ import UIKit
 import CoreData
 import CoreLocation
 
-class LocationViewController: UITableViewController,CLLocationManagerDelegate {
+class LocationViewController: UITableViewController,CLLocationManagerDelegate, NSFetchedResultsControllerDelegate {
     /* colorhexa site colors
 #E43451 reddish
     #EB774C orange
     #F4BA44 yellowish
     #C20826 darker red
 */
+    var fetchedResultsController = NSFetchedResultsController()
     let locationManager = CLLocationManager()
     
     struct colorst {
@@ -25,7 +26,6 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate {
         let orangish = UIColor(rgba: "#EB774C")
         let pinkish = UIColor(rgba: "#fbe1e5")
         let CELLID = "LocCell"
-        let MapSegueId = "ShowMap"
         let firstPink = UIColor(rgba: "#CE6164")
         let secondPink = UIColor(rgba: "#F19B93")
         let thirdPink = UIColor(rgba: "#F5B89C")
@@ -42,17 +42,21 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate {
     (UIApplication.sharedApplication().delegate
         as! AppDelegate).managedObjectContext
 
-    @IBAction func showButton(sender: UIBarButtonItem) {
+    @IBOutlet var UtilView: UIView!
+    @IBAction func ToggleList(sender: UIButton) {
         isByDate = isByDate ? false : true
-        sender.title! = isByDate ? "Show By Address" : "Show By Date"
+        sender.setTitle(isByDate ? "Show By Address" : "Show By Date", forState: UIControlState.Normal)
         tableView.reloadData()
+
     }
     
     
-    @IBAction func SaveLocation(sender: AnyObject) {
+    @IBAction func SaveLoc(sender: UIButton) {
         println("savinglocation")
         self.locationManager.startUpdatingLocation()
     }
+    
+   
     
     func addLocation(location : CLLocation) {
         println("adding location")
@@ -137,22 +141,37 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate {
         /*var title = self.navigationItem.title
         self.navigationItem.title = nil
         self.navigationItem.title = "Show Locations by Address"*/
+        //self.navigationItem.setLeftBarButtonItem(<#item: UIBarButtonItem?#>, animated: <#Bool#>)
+        //self.navigationItem.setRightBarButtonItem(<#item: UIBarButtonItem?#>, animated: <#Bool#>)
+        self.fetchedResultsController.delegate = self
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         self.locationManager.requestWhenInUseAuthorization()
+        self.tableView.layer.zPosition++
+        
         fetchLocationsByCriteria("Date")
         println("viewdidload: isByDate: \(isByDate)")
         
     }
     
+    func fetchLocations(){
+        let fetchRequest = NSFetchRequest(entityName: "Location")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext!, sectionNameKeyPath: "section", cacheName: nil)
+        fetchedResultsController.performFetch(nil)
+    }
+    
     func fetchLocationsByCriteria(crit : String){
             let fetchRequest = NSFetchRequest(entityName: "Location")
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date",ascending:false)]
             var locs = [Location]()
-
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = .ShortStyle
+            formatter.timeStyle = NSDateFormatterStyle.NoStyle
             if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Location]
             {
                 var locations = fetchResults
-                locations.sort({$0.date.timeIntervalSinceNow < $1.date.timeIntervalSinceNow})
+                //locations.sort({$0.date.timeIntervalSinceNow < $1.date.timeIntervalSinceNow})
                 var locs = NSMutableArray()
                 var ct = 0
                 for loc in locations {
@@ -212,16 +231,22 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate {
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-         println("numsections: isByDate: \(isByDate)")
-        if(isByDate){
-            return self.locDict.count
-        }
-        else{
-            return self.locDictByAddr.count
-        }
+        return fetchedResultsController.sections?.count ?? 0
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        let sectionInfo = fetchedResultsController.sections as! [NSFetchedResultsSectionInfo]
+        return sectionInfo[section].name
+        
+    }
+    
+   /* override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
          println("viewforheader: isByDate: \(isByDate)")
         let  headerCell = tableView.dequeueReusableCellWithIdentifier("HeaderCell") as! GroupCell
         var keys = NSArray()
@@ -239,9 +264,10 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate {
         //headerCell.textLabel?.textColor = colors.Yellowish
         headerCell.textLabel!.text = key
         return headerCell
-    }
+    }*/
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    /*override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          println("numrowsinsection: isByDate: \(isByDate)")
         var locations = []
         var keys = NSArray()
@@ -258,22 +284,40 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate {
 
         }
         return locations.count
-    }
+    }*/
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == colors.MapSegueId {
+        if segue.identifier == "ShowMap" {
+            println("showing map")
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 var cell = self.tableView.cellForRowAtIndexPath(indexPath)
-                let controller = segue.destinationViewController as! ViewController
-                controller.navigationItem.title = "\(cell!.textLabel!.text!):\(cell!.detailTextLabel!.text!)"
+                let controller = segue.destinationViewController as! GPXViewController
+                //controller.navigationItem.title = "\(cell!.textLabel!.text!):\(cell!.detailTextLabel!.text!)"
                 //controller.rownum = indexPath.row
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
-            }
+                var allVals = self.locDict.allValues
+                println("allVals:")
+                controller.wayPoints = allVals          }
         }
     }
     
-    override func  tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("LocCell") as! UITableViewCell
+        cell.layer.borderWidth = 0.5
+        cell.layer.borderColor = colors.firstPink.CGColor
+        cell.backgroundColor = colors.secondPink
+        let loc = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Location
+        let dt = loc.date
+        let formatter = NSDateFormatter()
+        formatter.timeStyle = .ShortStyle
+        formatter.dateStyle = .ShortStyle
+        cell.textLabel!.text = formatter.stringFromDate(loc.date)
+        cell.detailTextLabel!.text = loc.addr
+        return cell
+    }
+    
+    /*override func  tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
          println("cellforrowatindex: isByDate: \(isByDate)")
         var corners : UIRectCorner = UIRectCorner(0)
         tableView.layer.cornerRadius = 10
@@ -334,7 +378,7 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate {
         }
         
         return cell
-    }
+    }*/
     
    /* override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 40))

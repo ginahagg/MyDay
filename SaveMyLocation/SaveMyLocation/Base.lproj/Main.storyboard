@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7528.3" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="h63-4B-Lwa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7528.3" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cNa-EP-xdM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7518.3"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Saved Locations Map-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Saved Locations Map" id="BYZ-38-t0r" customClass="ViewController" customModule="SaveMyLocation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Saved Locations Map" id="BYZ-38-t0r" customClass="GPXViewController" customModule="SaveMyLocation" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -18,6 +20,10 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="aee-sY-met">
                                 <rect key="frame" x="0.0" y="-45" width="600" height="600"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="xkQ-5l-OE8" appends="YES" id="puT-eh-Glq"/>
+                                </connections>
                             </mapView>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oCr-oK-sUy">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -45,28 +51,249 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="aee-sY-met" id="7Fx-Gv-QhP"/>
+                        <segue destination="QqN-7c-Yp8" kind="popoverPresentation" identifier="Edit Waypoint" popoverAnchorView="aee-sY-met" id="AlL-yK-dnC">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <exit id="yJ5-pG-agz" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="-374.25" y="198"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="ZI3-Ko-kS8">
-            <objects>
-                <navigationController id="h63-4B-Lwa" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iJX-oc-7lc">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="xkQ-5l-OE8">
                     <connections>
-                        <segue destination="YIh-rP-ycl" kind="relationship" relationship="rootViewController" id="VTK-ph-VZG"/>
+                        <action selector="addWaypoint:" destination="BYZ-38-t0r" id="1za-wI-rdb"/>
                     </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nPZ-y7-8Fh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-2194.5" y="251"/>
+            <point key="canvasLocation" x="-2584.5" y="483"/>
+        </scene>
+        <!--add & edit-->
+        <scene sceneID="SBI-Dr-iXL">
+            <objects>
+                <viewController id="QqN-7c-Yp8" userLabel="add &amp; edit" customClass="EditWaypointViewController" customModule="SaveMyLocation" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4jJ-5R-m2L"/>
+                        <viewControllerLayoutGuide type="bottom" id="gJt-A1-2uJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Sr2-Bj-7ig">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8uL-eU-4BC">
+                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="65" y="104" width="310" height="30"/>
+                                </variation>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t4N-b9-84F">
+                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="65" y="137" width="276" height="30"/>
+                                </variation>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7c-vl-Do2">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="112" width="47" height="21"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WOe-yz-eiQ">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="141" width="33" height="21"/>
+                                </variation>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IzH-50-8Sf">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" red="1" green="0.43220466099999999" blue="0.35468720520000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="194" width="368" height="365"/>
+                                </variation>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dab-XP-oWb">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Button" image="Camera">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="349" y="137" width="35" height="29"/>
+                                </variation>
+                                <connections>
+                                    <action selector="takePhoto:" destination="QqN-7c-Yp8" eventType="touchUpInside" id="kPS-fZ-Y7Q"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adress and Date Information here" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ujF-TV-SEf">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="65" y="75" width="384" height="21"/>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.43220466099999999" blue="0.35468720520000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="8uL-eU-4BC"/>
+                                <exclude reference="t4N-b9-84F"/>
+                                <exclude reference="e7c-vl-Do2"/>
+                                <exclude reference="WOe-yz-eiQ"/>
+                                <exclude reference="IzH-50-8Sf"/>
+                                <exclude reference="dab-XP-oWb"/>
+                                <exclude reference="ujF-TV-SEf"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="8uL-eU-4BC"/>
+                                <include reference="t4N-b9-84F"/>
+                                <include reference="e7c-vl-Do2"/>
+                                <include reference="WOe-yz-eiQ"/>
+                                <include reference="IzH-50-8Sf"/>
+                                <include reference="dab-XP-oWb"/>
+                                <include reference="ujF-TV-SEf"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="add&amp;edit" id="bcB-7b-gq2">
+                        <barButtonItem key="rightBarButtonItem" title="done" id="1nE-XI-d4u">
+                            <connections>
+                                <action selector="done:" destination="QqN-7c-Yp8" id="4SH-Jq-e7X"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addrdate" destination="ujF-TV-SEf" id="zdq-Bn-bE5"/>
+                        <outlet property="imageViewContainer" destination="IzH-50-8Sf" id="T7Z-cE-Afl"/>
+                        <outlet property="infoTextField" destination="t4N-b9-84F" id="BNc-TC-KJF"/>
+                        <outlet property="nameTextField" destination="8uL-eU-4BC" id="TJg-Cn-zWz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="r9l-cR-YEa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1624.5" y="774"/>
+        </scene>
+        <!--I have been here..-->
+        <scene sceneID="XmC-kI-5oQ">
+            <objects>
+                <viewController storyboardIdentifier="Landing" id="cNa-EP-xdM" customClass="LandingController" customModule="SaveMyLocation" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6mk-Lh-JRp"/>
+                        <viewControllerLayoutGuide type="bottom" id="cSq-AJ-p6c"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vML-LK-Exl">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n7w-mI-qnI">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.43220466099999999" blue="0.35468720520000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="22"/>
+                                <state key="normal" title="set location">
+                                    <color key="titleColor" red="0.9690606236" green="1" blue="0.94016314619999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="323" width="368" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="SaveLocation:" destination="cNa-EP-xdM" eventType="touchUpInside" id="wt0-Rp-AW3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kuX-Kv-JFJ">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.38016188169999998" green="0.55232007579999998" blue="0.38477571379999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="19"/>
+                                <state key="normal" title="I once was here...">
+                                    <color key="titleColor" red="0.9690606236" green="1" blue="0.94016314619999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="392" width="368" height="30"/>
+                                </variation>
+                                <connections>
+                                    <segue destination="MkV-ev-sBZ" kind="show" identifier="ShowList" id="uLJ-qL-BwY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sGK-Oc-jGP">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.65794284270000003" green="0.93748027150000002" blue="0.61954383769999999" alpha="0.85999999999999999" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="20"/>
+                                <state key="normal" title="pin my map">
+                                    <color key="titleColor" red="0.9690606236" green="1" blue="0.94016314619999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="460" width="368" height="30"/>
+                                </variation>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pinnedMap" translatesAutoresizingMaskIntoConstraints="NO" id="C5H-L2-n6h">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="C5H-L2-n6h" firstAttribute="trailing" secondItem="vML-LK-Exl" secondAttribute="trailingMargin" id="8So-Ze-UoC"/>
+                            <constraint firstItem="C5H-L2-n6h" firstAttribute="top" secondItem="6mk-Lh-JRp" secondAttribute="bottom" constant="8" id="96q-5v-KlX">
+                                <variation key="widthClass=compact" constant="0.0"/>
+                            </constraint>
+                            <constraint firstItem="C5H-L2-n6h" firstAttribute="leading" secondItem="vML-LK-Exl" secondAttribute="leadingMargin" id="e42-0R-tYa"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="n7w-mI-qnI"/>
+                                <exclude reference="kuX-Kv-JFJ"/>
+                                <exclude reference="sGK-Oc-jGP"/>
+                                <exclude reference="C5H-L2-n6h"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="8So-Ze-UoC"/>
+                                <exclude reference="96q-5v-KlX"/>
+                                <exclude reference="e42-0R-tYa"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="n7w-mI-qnI"/>
+                                <include reference="kuX-Kv-JFJ"/>
+                                <include reference="sGK-Oc-jGP"/>
+                                <include reference="C5H-L2-n6h"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="8So-Ze-UoC"/>
+                                <include reference="96q-5v-KlX"/>
+                                <include reference="e42-0R-tYa"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="I have been here.." id="xLl-Cj-YSK"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6m5-N9-SsR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4110" y="-167"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="qWo-sd-FFt">
+            <objects>
+                <splitViewController id="MkV-ev-sBZ" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="YIh-rP-ycl" kind="relationship" relationship="masterViewController" id="xiO-LR-zKU"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="detailViewController" id="5FN-qQ-liX"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bEw-Yg-5DU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3394.5" y="-167"/>
         </scene>
         <!--Location View Controller-->
         <scene sceneID="Oma-Eh-sIf">
@@ -75,7 +302,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="pr6-J4-YEA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LocCell" textLabel="jQ2-em-vIC" detailTextLabel="m5K-xr-XZg" style="IBUITableViewCellStyleSubtitle" id="6OF-Vl-KK1" customClass="LocationCell" customModule="SaveMyLocation" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -103,7 +330,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="showDetail" identifier="ShowMap" id="GHH-Dz-HDU"/>
+                                    <segue destination="BYZ-38-t0r" kind="showDetail" identifier="ShowMap" id="vQm-dM-rkx"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HeaderCell" textLabel="ttH-aT-4ov" style="IBUITableViewCellStyleDefault" id="j0E-LF-Bqc" customClass="GroupCell" customModule="SaveMyLocation" customModuleProvider="target">
@@ -130,21 +357,69 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="NMi-WJ-ncB">
-                        <barButtonItem key="leftBarButtonItem" title="Save Location" id="64Z-Fd-46H">
-                            <connections>
-                                <action selector="SaveLocation:" destination="YIh-rP-ycl" id="fuu-dk-l9Y"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Show By Address" id="2g8-fy-1eV">
-                            <connections>
-                                <action selector="showButton:" destination="YIh-rP-ycl" id="8vW-YI-u7X"/>
-                            </connections>
-                        </barButtonItem>
+                        <nil key="title"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="UtilView" destination="7HJ-de-05w" id="Zll-rU-FGa"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f7V-wj-boc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="7HJ-de-05w" userLabel="UtilView">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="568"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTc-68-R5J">
+                            <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                            <color key="backgroundColor" red="0.65794284270000003" green="0.93748027150000002" blue="0.61954383769999999" alpha="0.85999999999999999" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                            <state key="normal" title="Show By Address">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <variation key="widthClass=compact" fixedFrame="YES">
+                                <rect key="frame" x="134" y="269" width="132" height="30"/>
+                            </variation>
+                            <connections>
+                                <action selector="ToggleList:" destination="YIh-rP-ycl" eventType="touchUpInside" id="3Z9-iz-f0d"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNO-5k-Jr2">
+                            <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                            <color key="backgroundColor" red="1" green="0.43220466099999999" blue="0.35468720520000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
+                            <state key="normal" title="Save Location">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <variation key="widthClass=compact" fixedFrame="YES">
+                                <rect key="frame" x="137" y="269" width="126" height="30"/>
+                            </variation>
+                            <connections>
+                                <action selector="SaveLoc:" destination="YIh-rP-ycl" eventType="touchUpInside" id="zfQ-En-FeV"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <variation key="default">
+                        <mask key="subviews">
+                            <exclude reference="tTc-68-R5J"/>
+                            <exclude reference="cNO-5k-Jr2"/>
+                        </mask>
+                    </variation>
+                    <variation key="widthClass=compact">
+                        <mask key="subviews">
+                            <include reference="tTc-68-R5J"/>
+                            <include reference="cNO-5k-Jr2"/>
+                        </mask>
+                    </variation>
+                </view>
             </objects>
-            <point key="canvasLocation" x="-1425" y="231"/>
+            <point key="canvasLocation" x="-3394.5" y="544"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Camera" width="38" height="30"/>
+        <image name="pinnedMap" width="300" height="225"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="vQm-dM-rkx"/>
+    </inferredMetricsTieBreakers>
 </document>
