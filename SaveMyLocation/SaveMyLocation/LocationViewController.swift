@@ -21,8 +21,8 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
     
     private lazy var locationDataController: LocationDataController = {
         
-        let controller = LocationDataController(managedObjectContext: self.managedObjectContext!)
-        controller.delegate = self
+        let controller = LocationDataController(managedObjectContext: self.managedObjectContext)
+        //controller.delegate = self
         
         return controller
         }()
@@ -70,7 +70,7 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         print("adding location")
         let entityDescription =
         NSEntityDescription.entityForName("Location",
-            inManagedObjectContext: managedObjectContext!)
+            inManagedObjectContext: managedObjectContext)
         let loc = Location(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
         let lat = location.coordinate.latitude
         let lng = location.coordinate.longitude
@@ -81,8 +81,8 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         var error: NSError?
         
         do {
-            try managedObjectContext?.save()
-        } catch var error1 as NSError {
+            try managedObjectContext.save()
+        } catch let error1 as NSError {
             error = error1
         }
         
@@ -98,20 +98,20 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         //var longitude :CLLocationDegrees = -122.0312186
         //var latitude :CLLocationDegrees = 37.33233141
         
-        var location = CLLocation(latitude: lat, longitude: lng) //changed!!!
+        let location = CLLocation(latitude: lat, longitude: lng) //changed!!!
         //println(location)
         
         CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
             //println(location)
             
             if error != nil {
-                print("Reverse geocoder failed with error" + error.localizedDescription)
+                print("Reverse geocoder failed with error" + error!.localizedDescription)
                 return
             }
             
-            if placemarks.count > 0 {
-                let pm = placemarks[0] as! CLPlacemark
-                var pms = "\(pm.thoroughfare) \(pm.subLocality), \(pm.locality)"
+            if placemarks!.count > 0 {
+                let pm = placemarks![0] as CLPlacemark
+                let pms = "\(pm.thoroughfare) \(pm.subLocality), \(pm.locality)"
                 loc.addr = pms
                 
             }
@@ -122,7 +122,8 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         })
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
+    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation)
+    {
         print("old:\(oldLocation.description), new:\(newLocation.description)")
     }
     
@@ -163,7 +164,7 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
     func fetchLocations(){
         let fetchRequest = NSFetchRequest(entityName: "Location")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext!, sectionNameKeyPath: "section", cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext, sectionNameKeyPath: "section", cacheName: nil)
         do {
             try fetchedResultsController.performFetch()
         } catch _ {
@@ -182,8 +183,8 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        let sectionInfo = fetchedResultsController.sections as! [NSFetchedResultsSectionInfo]
-        return sectionInfo[section].name
+        let sectionInfo = fetchedResultsController.sections as [NSFetchedResultsSectionInfo]?
+        return sectionInfo![section].name
         
     }
 
@@ -191,7 +192,6 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         if segue.identifier == "ShowMap" {
             print("showing map")
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                var cell = self.tableView.cellForRowAtIndexPath(indexPath)
                 let controller = segue.destinationViewController as! GPXViewController
                 //controller.navigationItem.title = "\(cell!.textLabel!.text!):\(cell!.detailTextLabel!.text!)"
                 //controller.rownum = indexPath.row
@@ -199,11 +199,11 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 
                 print("allVals:")
-                var allVals = fetchedResultsController.fetchedObjects as! [Location]
+                let allVals = fetchedResultsController.fetchedObjects as! [Location]
                 controller.storedWayPoints = allVals
-                let secInfo = fetchedResultsController.sections?[indexPath.section] as! NSFetchedResultsSectionInfo
+                let secInfo = fetchedResultsController.sections?[indexPath.section] as NSFetchedResultsSectionInfo?
                 //let row = secInfo[indexPath.section] as NSFetchedResultsSectionInfo
-                let locs = secInfo.objects as! [Location]
+                let locs = secInfo!.objects as! [Location]
                 let loc = locs[indexPath.row]
                 controller.centerCoordinate = CLLocationCoordinate2DMake(CLLocationDegrees(loc.latitude), CLLocationDegrees(loc.longitude))
                 
@@ -212,18 +212,17 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("LocCell") as! UITableViewCell
-        cell.layer.borderWidth = 0.5
-        cell.layer.borderColor = colors.firstPink.CGColor
-        cell.backgroundColor = colors.secondPink
+        let cell = tableView.dequeueReusableCellWithIdentifier("LocCell") as UITableViewCell?
+        cell!.layer.borderWidth = 0.5
+        cell!.layer.borderColor = colors.firstPink.CGColor
+        cell!.backgroundColor = colors.secondPink
         let loc = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Location
-        let dt = loc.date
         let formatter = NSDateFormatter()
         formatter.timeStyle = .ShortStyle
         formatter.dateStyle = .NoStyle
-        cell.textLabel!.text = formatter.stringFromDate(loc.date)
-        cell.detailTextLabel!.text = loc.addr
-        return cell
+        cell!.textLabel!.text = formatter.stringFromDate(loc.date)
+        cell!.detailTextLabel!.text = loc.addr
+        return cell!
     }
     
     func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
@@ -239,8 +238,6 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
             break
         case NSFetchedResultsChangeType.Update:
             break
-        default:
-            break
         }
     }
     
@@ -250,9 +247,9 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         
         switch editingStyle {
         case .Delete:
-            managedObjectContext?.deleteObject(fetchedResultsController.objectAtIndexPath(indexPath) as! Location)
+            managedObjectContext.deleteObject(fetchedResultsController.objectAtIndexPath(indexPath) as! Location)
             do {
-                try managedObjectContext?.save()
+                try managedObjectContext.save()
             } catch _ {
             }
         case .Insert:
@@ -267,19 +264,17 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         
         switch type {
         case NSFetchedResultsChangeType.Insert:
-            tableView.insertRowsAtIndexPaths(NSArray(object: newIndexPath!) as [AnyObject], withRowAnimation: UITableViewRowAnimation.Fade)
+            tableView.insertRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
             break
         case NSFetchedResultsChangeType.Delete:
-            tableView.deleteRowsAtIndexPaths(NSArray(object: indexPath!) as [AnyObject], withRowAnimation: UITableViewRowAnimation.Fade)
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
             break
         case NSFetchedResultsChangeType.Move:
-            tableView.deleteRowsAtIndexPaths(NSArray(object: indexPath!) as [AnyObject], withRowAnimation: UITableViewRowAnimation.Fade)
-            tableView.insertRowsAtIndexPaths(NSArray(object: newIndexPath!) as [AnyObject], withRowAnimation: UITableViewRowAnimation.Fade)
+            tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+            tableView.insertRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
             break
         case NSFetchedResultsChangeType.Update:
             tableView.cellForRowAtIndexPath(indexPath!)
-            break
-        default:
             break
         }
     }
@@ -310,7 +305,7 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
     
     @IBAction func goback (segue: UIStoryboardSegue){
         print("I have been unwound from \(segue.sourceViewController)")
-        if let sourceController = segue.sourceViewController as? ViewController{
+        if let _ = segue.sourceViewController as? GPXViewController{
             print("good")
             /*if !sourceController.subject.isEmpty{
                 let selectedMood = sourceController.selected

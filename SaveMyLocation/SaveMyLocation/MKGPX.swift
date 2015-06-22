@@ -31,20 +31,20 @@ class EditableWaypoint: GPX.Waypoint
         //var longitude :CLLocationDegrees = -122.0312186
         //var latitude :CLLocationDegrees = 37.33233141
         
-        var location = CLLocation(latitude: waypoint.coordinate.latitude, longitude: waypoint.coordinate.longitude) //changed!!!
+        let location = CLLocation(latitude: waypoint.coordinate.latitude, longitude: waypoint.coordinate.longitude) //changed!!!
         //println(location)
         
         CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
             //println(location)
             
             if error != nil {
-                print("Reverse geocoder failed with error" + error.localizedDescription)
+                print("Reverse geocoder failed with error" + error!.localizedDescription)
                 return
             }
             
-            if placemarks.count > 0 {
-                let pm = placemarks[0] as! CLPlacemark
-                var pms = "\(pm.thoroughfare) \(pm.subLocality), \(pm.locality)"
+            if placemarks!.count > 0 {
+                let pm = placemarks![0] as CLPlacemark
+                let pms = "\(pm.thoroughfare) \(pm.subLocality), \(pm.locality)"
                 waypoint.addr = pms
                 
             }

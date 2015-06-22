@@ -38,7 +38,7 @@ class LandingController: UIViewController, CLLocationManagerDelegate {
         print("adding location")
         let entityDescription =
         NSEntityDescription.entityForName("Location",
-            inManagedObjectContext: managedObjectContext!)
+            inManagedObjectContext: managedObjectContext)
         
         //SO STUPID! coredata model for lat/lng is double, but i need NSNumber wrapping because declaring lat/lng as double
         //in Location model class fails. i need to declare them as NSNumber. Thus the wrapping..IDIOTs
@@ -53,8 +53,8 @@ class LandingController: UIViewController, CLLocationManagerDelegate {
         var error: NSError?
         
         do {
-            try managedObjectContext?.save()
-        } catch var error1 as NSError {
+            try managedObjectContext.save()
+        } catch let error1 as NSError {
             error = error1
         }
                 
@@ -79,20 +79,20 @@ class LandingController: UIViewController, CLLocationManagerDelegate {
         //var longitude :CLLocationDegrees = -122.0312186
         //var latitude :CLLocationDegrees = 37.33233141
         
-        var location = CLLocation(latitude: lat, longitude: lng) //changed!!!
+        let location = CLLocation(latitude: lat, longitude: lng) //changed!!!
         //println(location)
         
         CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
             //println(location)
             
             if error != nil {
-                print("Reverse geocoder failed with error" + error.localizedDescription)
+                print("Reverse geocoder failed with error" + error!.localizedDescription)
                 return
             }
             
-            if placemarks.count > 0 {
-                let pm = placemarks[0] as! CLPlacemark
-                var pms = "\(pm.thoroughfare) \(pm.subLocality), \(pm.locality)"
+            if placemarks!.count > 0 {
+                let pm = placemarks![0] as CLPlacemark
+                let pms = "\(pm.thoroughfare) \(pm.subLocality), \(pm.locality)"
                 loc.addr = pms
                 
             }
@@ -103,7 +103,7 @@ class LandingController: UIViewController, CLLocationManagerDelegate {
         })
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
+    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         print("old:\(oldLocation.description), new:\(newLocation.description)")
     }
     
@@ -117,6 +117,23 @@ class LandingController: UIViewController, CLLocationManagerDelegate {
             print("locationViewController: lat: \(location.coordinate.latitude), long: \(location.coordinate.longitude)")
             addLocation(location)
         }
+    }
+    
+    @IBAction func goback (segue: UIStoryboardSegue){
+        print("I have been unwound from \(segue.sourceViewController)")
+        if let _ = segue.sourceViewController as? GPXViewController{
+            print("good")
+            /*if !sourceController.subject.isEmpty{
+            let selectedMood = sourceController.selected
+            var rownum = sourceController.rownum
+            var cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rownum, inSection: 0)) as! SelectionViewCell
+            
+            cell.selectionTitle.text = "\(selectedMood!.text!)."
+            cell.selectionSubTitle.text = "My \(selectedMood!.subject!) today"
+            cell.backgroundColor = selectedMood!.color
+            }*/
+        }
+        
     }
     
 }

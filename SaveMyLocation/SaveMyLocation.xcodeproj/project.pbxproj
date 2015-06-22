@@ -23,13 +23,14 @@
 		F2B480631B33851500ED748C /* LocationDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B480621B33851500ED748C /* LocationDataController.swift */; };
 		F2C08CAA1B19694800F6196E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C08CA91B19694800F6196E /* AppDelegate.swift */; };
 		F2C08CAD1B19694800F6196E /* SaveMyLocation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F2C08CAB1B19694800F6196E /* SaveMyLocation.xcdatamodeld */; };
-		F2C08CAF1B19694800F6196E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C08CAE1B19694800F6196E /* ViewController.swift */; };
 		F2C08CB21B19694800F6196E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2C08CB01B19694800F6196E /* Main.storyboard */; };
 		F2C08CB41B19694800F6196E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2C08CB31B19694800F6196E /* Images.xcassets */; };
 		F2C08CB71B19694800F6196E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2C08CB51B19694800F6196E /* LaunchScreen.xib */; };
 		F2C08CC31B19694800F6196E /* SaveMyLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C08CC21B19694800F6196E /* SaveMyLocationTests.swift */; };
 		F2DAC10E1B324F7200A11CB6 /* FUICellBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DAC10D1B324F7200A11CB6 /* FUICellBackgroundView.swift */; };
 		F2DAC1121B329C1200A11CB6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DAC1111B329C1200A11CB6 /* Location.swift */; };
+		F2DFE8F81B37DC1000DBA7E6 /* SimpleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DFE8F71B37DC1000DBA7E6 /* SimpleMapViewController.swift */; };
+		F2DFE8FA1B37E93E00DBA7E6 /* GlobalSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DFE8F91B37E93E00DBA7E6 /* GlobalSplitViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +75,6 @@
 		F2C08CA81B19694800F6196E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2C08CA91B19694800F6196E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2C08CAC1B19694800F6196E /* SaveMyLocation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SaveMyLocation.xcdatamodel; sourceTree = "<group>"; };
-		F2C08CAE1B19694800F6196E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F2C08CB11B19694800F6196E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F2C08CB31B19694800F6196E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F2C08CB61B19694800F6196E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -83,6 +83,8 @@
 		F2C08CC21B19694800F6196E /* SaveMyLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMyLocationTests.swift; sourceTree = "<group>"; };
 		F2DAC10D1B324F7200A11CB6 /* FUICellBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FUICellBackgroundView.swift; sourceTree = "<group>"; };
 		F2DAC1111B329C1200A11CB6 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		F2DFE8F71B37DC1000DBA7E6 /* SimpleMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleMapViewController.swift; sourceTree = "<group>"; };
+		F2DFE8F91B37E93E00DBA7E6 /* GlobalSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSplitViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 		F2C08CA61B19694800F6196E /* SaveMyLocation */ = {
 			isa = PBXGroup;
 			children = (
+				F2DFE8F71B37DC1000DBA7E6 /* SimpleMapViewController.swift */,
 				F279A12C1B30D29F00E65F90 /* GPX.swift */,
 				F279A12A1B30D28B00E65F90 /* MKGPX.swift */,
 				F279A1281B30D20400E65F90 /* WaypointImageViewController.swift */,
@@ -132,7 +135,6 @@
 				F279A1241B30D1E200E65F90 /* GPXViewController.swift */,
 				F279A1221B30D1D400E65F90 /* ImageViewController.swift */,
 				F2C08CA91B19694800F6196E /* AppDelegate.swift */,
-				F2C08CAE1B19694800F6196E /* ViewController.swift */,
 				F2AB76BF1B26C13A003F49C1 /* LocationViewController.swift */,
 				F2B480621B33851500ED748C /* LocationDataController.swift */,
 				F23B03781B280A9900BC124E /* UIColorExtension.swift */,
@@ -141,6 +143,7 @@
 				F2617C8D1B1A6D9D00765F49 /* LocationAnnotation.swift */,
 				F273CFF11B28A31700B1A7F2 /* LocationManagedObject.swift */,
 				F2C08CB01B19694800F6196E /* Main.storyboard */,
+				F2DFE8F91B37E93E00DBA7E6 /* GlobalSplitViewController.swift */,
 				F21844961B2D086D006B7200 /* LandingController.swift */,
 				F2C08CB31B19694800F6196E /* Images.xcassets */,
 				F2C08CB51B19694800F6196E /* LaunchScreen.xib */,
@@ -223,7 +226,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Gina Hagg";
 				TargetAttributes = {
 					F2C08CA31B19694800F6196E = {
@@ -297,11 +300,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F279A1251B30D1E200E65F90 /* GPXViewController.swift in Sources */,
+				F2DFE8F81B37DC1000DBA7E6 /* SimpleMapViewController.swift in Sources */,
 				F23975241B27ABF00071F898 /* GroupCell.swift in Sources */,
-				F2C08CAF1B19694800F6196E /* ViewController.swift in Sources */,
 				F2DAC10E1B324F7200A11CB6 /* FUICellBackgroundView.swift in Sources */,
 				F2B480631B33851500ED748C /* LocationDataController.swift in Sources */,
 				F2DAC1121B329C1200A11CB6 /* Location.swift in Sources */,
+				F2DFE8FA1B37E93E00DBA7E6 /* GlobalSplitViewController.swift in Sources */,
 				F21844971B2D086D006B7200 /* LandingController.swift in Sources */,
 				F2C08CAA1B19694800F6196E /* AppDelegate.swift in Sources */,
 				F279A1231B30D1D400E65F90 /* ImageViewController.swift in Sources */,
@@ -377,6 +381,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -398,7 +403,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -435,7 +440,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -453,6 +458,7 @@
 				INFOPLIST_FILE = SaveMyLocation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gina.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -472,6 +478,7 @@
 				INFOPLIST_FILE = SaveMyLocation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gina.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -492,6 +499,7 @@
 				);
 				INFOPLIST_FILE = SaveMyLocationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gina.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SaveMyLocation.app/SaveMyLocation";
 			};
@@ -507,6 +515,7 @@
 				);
 				INFOPLIST_FILE = SaveMyLocationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gina.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SaveMyLocation.app/SaveMyLocation";
 			};

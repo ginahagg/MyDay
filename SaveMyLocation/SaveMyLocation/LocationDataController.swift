@@ -11,10 +11,10 @@ import CoreData
 
 class LocationDataController {
     
-    var delegate : NSFetchedResultsControllerDelegate?
+    //var delegate : NSFetchedResultsControllerDelegate?
     
     private var managedObjectContext: NSManagedObjectContext
-    private lazy var locationDataController: NSFetchedResultsController = {
+   /* private lazy var locationDataController: NSFetchedResultsController = {
         
         let fetchRequest = NSFetchRequest(entityName: "Location")
         //fetchRequest.relationshipKeyPathsForPrefetching = ["toDo"]
@@ -30,7 +30,7 @@ class LocationDataController {
         controller.delegate = self
         
         return controller
-        }()
+        }()*/
     
     
     init(managedObjectContext: NSManagedObjectContext) {
@@ -55,25 +55,42 @@ class LocationDataController {
             fetchRequest.resultType = NSFetchRequestResultType.DictionaryResultType
             //fetchRequest.propertiesToFetch = ["latitude", "longitude"]
             //fetchRequest.returnsDistinctResults = true
-            let results = self.managedObjectContext.executeFetchRequest(fetchRequest) as! [NSDictionary]
-            return results
+        var results = [NSDictionary]()
+            do{
+                results = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [NSDictionary]
+            }
+            catch _{
+                print ("fetchlocation by address error")
+            }
+        
+         return results
     }
     
     func updateLocation(waypoint : EditableWaypoint) {
         //let entitydesc = NSEntityDescription.entityForName("Location", inManagedObjectContext: self.managedObjectContext)
         //var loc = Location(entity: entitydesc!, insertIntoManagedObjectContext: self.managedObjectContext)
-        var error : NSError?
-        let loc = self.managedObjectContext.existingObjectWithID(waypoint.storeId! as NSManagedObjectID) as! Location
-        loc.info = "\(waypoint.name) : \(waypoint.info)"
-        let url = waypoint.imageURL
-        if (url != nil){
-            let path = url!.path
-            loc.photo = path != nil ? path! : ""
+        
+        do{
+           let loc = try self.managedObjectContext.existingObjectWithID(waypoint.storeId! as NSManagedObjectID) as! Location
+            loc.info = "\(waypoint.name) : \(waypoint.info)"
+            loc.addr = waypoint.addr
+            loc.latitude = waypoint.coordinate.latitude
+            loc.longitude = waypoint.coordinate.longitude
+            let url = waypoint.imageURL
+            if (url != nil){
+                let path = url!.path
+                loc.photo = path != nil ? path! : ""
+            }
+
+        }catch let error1 as NSError {
+            print(error1.description)
         }
+        
+        
         do {
             try self.managedObjectContext.save()
-        } catch var error1 as NSError {
-            error = error1
+        } catch let error1 as NSError {
+            print(error1.description)
         }
     }
     
@@ -83,6 +100,12 @@ class LocationDataController {
         let loc = Location(entity: entity!, insertIntoManagedObjectContext: self.managedObjectContext)
         loc.latitude = waypoint.coordinate.latitude
         loc.longitude = waypoint.coordinate.longitude
+        let url = waypoint.imageURL
+        if (url != nil){
+            let path = url!.path
+            loc.photo = path != nil ? path! : ""
+        }
+
         loc.info = "\(waypoint.description) -dropped"
         if (waypoint.addr == ""){
             EditableWaypoint.getAddressForSave(waypoint)
@@ -92,7 +115,7 @@ class LocationDataController {
         var error: NSError?
         do {
             try self.managedObjectContext.save()
-        } catch var error1 as NSError {
+        } catch let error1 as NSError {
             error = error1
         }
         
@@ -108,26 +131,3 @@ class LocationDataController {
    
 }
 
-extension LocationDataController: NSFetchedResultsControllerDelegate {
-    
-    func controllerWillChangeContent(controller: NSFetchedResultsController)  {
-        delegate?.controllerWillChangeContent?(controller)
-    }
-    
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)  {
-        
-       
-            delegate?.controller?(controller, didChangeSection: sectionInfo, atIndex: sectionIndex, forChangeType: type)
-        
-    }
-    
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)  {
-        
-        
-        delegate?.controller?(controller, didChangeObject: anObject as! NSManagedObject, atIndexPath: indexPath, forChangeType: type, newIndexPath: newIndexPath)
-    }
-    
-    func controllerDidChangeContent(controller: NSFetchedResultsController)  {
-        delegate?.controllerDidChangeContent?(controller)
-    }
-}

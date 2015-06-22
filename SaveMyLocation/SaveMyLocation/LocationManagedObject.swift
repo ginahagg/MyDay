@@ -29,20 +29,20 @@ class LocationManagedObject : NSManagedObject {
         let lat = location.coordinate.latitude
         let lng = location.coordinate.longitude
         
-        var location = CLLocation(latitude: lat, longitude: lng) //changed!!!
+        let location = CLLocation(latitude: lat, longitude: lng) //changed!!!
         //println(location)
         
         CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
             //println(location)
             
             if error != nil {
-                print("Reverse geocoder failed with error" + error.localizedDescription)
+                print("Reverse geocoder failed with error" + error!.localizedDescription)
                 return
             }
             
-            if placemarks.count > 0 {
-                let pm = placemarks[0] as! CLPlacemark
-                var pms = "\(pm.thoroughfare) \(pm.subLocality), \(pm.locality)"
+            if placemarks!.count > 0 {
+                let pm = placemarks![0] as CLPlacemark
+                let pms = "\(pm.thoroughfare) \(pm.subLocality), \(pm.locality)"
                 loc.addr = pms
                 
             }
@@ -61,7 +61,7 @@ class LocationManagedObject : NSManagedObject {
         
         do {
             try managedObjectContext.save()
-        } catch var error1 as NSError {
+        } catch let error1 as NSError {
             error = error1
         }
         

@@ -21,8 +21,8 @@ class EditWaypointViewController: UIViewController, UITextFieldDelegate, UIImage
     
     private lazy var locationDataController: LocationDataController = {
         
-        let controller = LocationDataController(managedObjectContext: self.managedObjectContext!)
-        controller.delegate = self
+        let controller = LocationDataController(managedObjectContext: self.managedObjectContext)
+        //controller.delegate = self
         
         return controller
         }()
@@ -85,7 +85,7 @@ class EditWaypointViewController: UIViewController, UITextFieldDelegate, UIImage
             let picker = UIImagePickerController()
             picker.sourceType = .Camera
             // if we were looking for video, we'd check availableMediaTypes
-            picker.mediaTypes = [kUTTypeImage]
+            picker.mediaTypes = [kUTTypeImage as String]
             picker.delegate = self
             picker.allowsEditing = true
             presentViewController(picker, animated: true, completion: nil)
@@ -119,10 +119,11 @@ class EditWaypointViewController: UIViewController, UITextFieldDelegate, UIImage
         if let image = imageView.image {
             if let imageData = UIImageJPEGRepresentation(image, 1.0) {
                 let fileManager = NSFileManager()
-                if let docsDir = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first as? NSURL {
+                if let docsDir = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first! as? NSURL {
                     let unique = NSDate.timeIntervalSinceReferenceDate()
                     let url = docsDir.URLByAppendingPathComponent("\(unique).jpg")
-                    if let path = url.absoluteString {
+                    let path = url.absoluteString
+                    if !path.isEmpty {
                         if imageData.writeToURL(url, atomically: true) {
                             waypointToEdit?.links = [GPX.Link(href: path)]
                         }

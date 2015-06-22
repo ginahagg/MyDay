@@ -47,8 +47,8 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
 
     private lazy var locationDataController: LocationDataController = {
         
-        let controller = LocationDataController(managedObjectContext: self.managedObjectContext!)
-        controller.delegate = self
+        let controller = LocationDataController(managedObjectContext: self.managedObjectContext)
+        //controller.delegate = self
         
         return controller
     }()
@@ -87,7 +87,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         mapView.showAnnotations(waypoints, animated: true)
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         let waypoint = annotation as? GPX.Waypoint
         if annotation is MKUserLocation {
             //return nil so map view draws "blue dot" for standard user location
@@ -250,18 +250,24 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         fetchRequest.resultType = NSFetchRequestResultType.DictionaryResultType
         //fetchRequest.propertiesToFetch = ["latitude", "longitude"]
         //fetchRequest.returnsDistinctResults = true
-        let results = self.managedObjectContext?.executeFetchRequest(fetchRequest) as! [NSDictionary]
-        if (results.count>0){
-            for res in results{
-                let addr = res.valueForKey("addr") as! String
-                let lat = res.valueForKey("latitude") as! Double
-                let lng = res.valueForKey("longitude") as! Double
-                let pin = res.valueForKey("pin") as! String
-                let waypoint = EditableWaypoint(latitude: lat, longitude: lng)
-                waypoint.name = addr
-                self.wayPoints.addObject(waypoint)
+        do{
+            let results = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [NSDictionary]
+            if (results.count>0){
+                for res in results{
+                    let addr = res.valueForKey("addr") as! String
+                    let lat = res.valueForKey("latitude") as! Double
+                    let lng = res.valueForKey("longitude") as! Double
+                    let waypoint = EditableWaypoint(latitude: lat, longitude: lng)
+                    waypoint.name = addr
+                    self.wayPoints.addObject(waypoint)
+                }
             }
         }
+        catch _ {
+            
+        }
+        
+    
         
     }
     
@@ -271,7 +277,6 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
                 let addr = res.valueForKey("addr") as! String
                 let lat = res.valueForKey("latitude") as! Double
                 let lng = res.valueForKey("longitude") as! Double
-                let pin = res.valueForKey("pin") as! String
                 let waypoint = EditableWaypoint(latitude: lat, longitude: lng)
                 waypoint.name = addr
                 self.wayPoints.addObject(waypoint)

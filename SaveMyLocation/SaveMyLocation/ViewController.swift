@@ -60,13 +60,15 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
         var centerLat : NSNumber = 37.33233141
         var centerLng : NSNumber = -122.0312186
         let fetchRequest = NSFetchRequest(entityName: "Location")
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest) as? [Location] {
+        var fetchResults = [Location]()
+        do{
+            fetchResults = try managedObjectContext!.executeFetchRequest(fetchRequest) as? [Location]
             var results = fetchResults
             results.sortInPlace({$0.date.timeIntervalSinceNow > $1.date.timeIntervalSinceNow})
-            
+                
             if (results.count > 0){
-               let last = results.last!
-                centerLat = last.latitude
+                    let last = results.last!
+                    centerLat = last.latitude
                 centerLng = last.longitude
             }
             print("\(fetchResults.count) records\n")
@@ -76,16 +78,16 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
                 let formatter = NSDateFormatter()
                 formatter.dateStyle = .MediumStyle
                 formatter.timeStyle = .MediumStyle
-                var date = formatter.stringFromDate(Dt)
+                _ = formatter.stringFromDate(Dt)
                 print("location: \(rec.addr),\(rec.latitude), \(rec.longitude)")
                 //println("lat: \(date) for \(rec.latitude), \(rec.longitude)")
                 addAnnotation(CLLocationDegrees(rec.latitude), lng: CLLocationDegrees(rec.longitude))
             }
-            
         }
-        else {
-            print("no records")
+        catch {
+            print("error")
         }
+        
         self.centerCoordinate = CLLocationCoordinate2DMake(CLLocationDegrees(centerLat), CLLocationDegrees(centerLng))
         self.zoomLevel = 10
         

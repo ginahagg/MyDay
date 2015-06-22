@@ -10,7 +10,7 @@
 
 import Foundation
 
-class GPX: NSObject, CustomStringConvertible, NSXMLParserDelegate
+class GPX: NSObject,  NSXMLParserDelegate
 {
     // MARK: - Public API
 
@@ -26,7 +26,7 @@ class GPX: NSObject, CustomStringConvertible, NSXMLParserDelegate
     
     // MARK: - Public Classes
     
-    class Track: Entry, CustomStringConvertible
+    class Track: Entry
     {
         var fixes = [Waypoint]()
         
@@ -36,7 +36,7 @@ class GPX: NSObject, CustomStringConvertible, NSXMLParserDelegate
         }
     }
     
-    class Waypoint: Entry, CustomStringConvertible
+    class Waypoint: Entry
     {
         var latitude: Double
         var longitude: Double
@@ -58,7 +58,7 @@ class GPX: NSObject, CustomStringConvertible, NSXMLParserDelegate
         }
     }
     
-    class Entry: NSObject, CustomStringConvertible
+    class Entry: NSObject
     {
         var links = [Link]()
         var attributes = [String:String]()
@@ -146,8 +146,8 @@ class GPX: NSObject, CustomStringConvertible, NSXMLParserDelegate
     
     private var input = ""
 
-    func parser(parser: NSXMLParser, foundCharacters string: String?) {
-        input += string!
+    func parser(parser: NSXMLParser, foundCharacters string: String) {
+        input += string
     }
     
     private var waypoint: Waypoint?
@@ -165,11 +165,11 @@ class GPX: NSObject, CustomStringConvertible, NSXMLParserDelegate
                 routes.append(Track())
                 track = routes.last
             case "rtept", "trkpt", "wpt":
-                let latitude = (attributeDict["lat"] as! NSString).doubleValue
-                let longitude = (attributeDict["lon"] as! NSString).doubleValue
-                waypoint = Waypoint(latitude: latitude, longitude: longitude)
+                let latitude = Double(attributeDict["lat"]!)
+                let longitude = Double(attributeDict["lon"]!)
+                waypoint = Waypoint(latitude: latitude!, longitude: longitude!)
             case "link":
-                link = Link(href: attributeDict["href"] as! String)
+                link = Link(href: attributeDict["href"]! as String)
             default: break
         }
     }

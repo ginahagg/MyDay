@@ -22,11 +22,11 @@ class WaypointImageViewController: ImageViewController
     // by grabbing the MVC that is embedded
     // we can then update it whenever it might need it
 
-    var smvc: ViewController?
+    var smvc: SimpleMapViewController?
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Embed Map" {
-            smvc = segue.destinationViewController as? ViewController
+            smvc = segue.destinationViewController as? SimpleMapViewController
             updateEmbeddedMap()
         }
     }
@@ -40,7 +40,7 @@ class WaypointImageViewController: ImageViewController
         if let mapView = smvc?.mapView {
             mapView.mapType = .Hybrid
             mapView.removeAnnotations(mapView.annotations)
-            mapView.addAnnotation(waypoint)
+            mapView.addAnnotation(waypoint!)
             mapView.showAnnotations(mapView.annotations, animated: true)
         }
     }
