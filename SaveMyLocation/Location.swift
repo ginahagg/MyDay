@@ -25,7 +25,7 @@ class Location: NSManagedObject {
         let formatter = NSDateFormatter()
         formatter.dateStyle = .ShortStyle
         formatter.timeStyle = NSDateFormatterStyle.NoStyle
-        var dat = formatter.stringFromDate(self.date)
+        let dat = formatter.stringFromDate(self.date)
         return dat
         
     }

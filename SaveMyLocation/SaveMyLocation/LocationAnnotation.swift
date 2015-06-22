@@ -10,8 +10,8 @@ import Foundation
 import MapKit
 
 class LocationAnnotation: NSObject, MKAnnotation {
-    let title: String
-    let subtitle: String
+    let title: String?
+    let subtitle: String?
     let photoUrl : String
     let coordinate: CLLocationCoordinate2D
     

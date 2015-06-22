@@ -10,7 +10,7 @@
 
 import Foundation
 
-class GPX: NSObject, Printable, NSXMLParserDelegate
+class GPX: NSObject, CustomStringConvertible, NSXMLParserDelegate
 {
     // MARK: - Public API
 
@@ -26,7 +26,7 @@ class GPX: NSObject, Printable, NSXMLParserDelegate
     
     // MARK: - Public Classes
     
-    class Track: Entry, Printable
+    class Track: Entry, CustomStringConvertible
     {
         var fixes = [Waypoint]()
         
@@ -36,7 +36,7 @@ class GPX: NSObject, Printable, NSXMLParserDelegate
         }
     }
     
-    class Waypoint: Entry, Printable
+    class Waypoint: Entry, CustomStringConvertible
     {
         var latitude: Double
         var longitude: Double
@@ -58,7 +58,7 @@ class GPX: NSObject, Printable, NSXMLParserDelegate
         }
     }
     
-    class Entry: NSObject, Printable
+    class Entry: NSObject, CustomStringConvertible
     {
         var links = [Link]()
         var attributes = [String:String]()
@@ -76,7 +76,7 @@ class GPX: NSObject, Printable, NSXMLParserDelegate
         }
     }
     
-    class Link: Printable
+    class Link: CustomStringConvertible
     {
         var href: String
         var linkattributes = [String:String]()
@@ -115,7 +115,7 @@ class GPX: NSObject, Printable, NSXMLParserDelegate
         self.completionHandler = completionHandler
     }
     
-    private func complete(#success: Bool) {
+    private func complete(success success: Bool) {
         dispatch_async(dispatch_get_main_queue()) {
             self.completionHandler(success ? self : nil)
         }
@@ -125,7 +125,7 @@ class GPX: NSObject, Printable, NSXMLParserDelegate
     private func succeed() { complete(success: true) }
     
     private func parse() {
-        let qos = Int(QOS_CLASS_USER_INITIATED.value)
+        let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
         dispatch_async(dispatch_get_global_queue(qos, 0)) {
             if let data = NSData(contentsOfURL: self.url) {
                 let parser = NSXMLParser(data: data)
@@ -154,7 +154,7 @@ class GPX: NSObject, Printable, NSXMLParserDelegate
     private var track: Track?
     private var link: Link?
 
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [NSObject : AnyObject]) {
+    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String]) {
         switch elementName {
             case "trkseg":
                 if track == nil { fallthrough }

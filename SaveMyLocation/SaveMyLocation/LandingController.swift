@@ -18,7 +18,7 @@ class LandingController: UIViewController, CLLocationManagerDelegate {
     }
 
     @IBAction func SaveLocation(sender: UIButton) {
-        println("save location is called")
+        print("save location is called")
         self.locationManager.startUpdatingLocation()
     }
     
@@ -35,7 +35,7 @@ class LandingController: UIViewController, CLLocationManagerDelegate {
 
     
     func addLocation(location : CLLocation) {
-        println("adding location")
+        print("adding location")
         let entityDescription =
         NSEntityDescription.entityForName("Location",
             inManagedObjectContext: managedObjectContext!)
@@ -52,18 +52,22 @@ class LandingController: UIViewController, CLLocationManagerDelegate {
         getAddressForSave(lng, lat: lat, loc: loc)
         var error: NSError?
         
-        managedObjectContext?.save(&error)
+        do {
+            try managedObjectContext?.save()
+        } catch var error1 as NSError {
+            error = error1
+        }
                 
         if let err = error {
-            println(err.localizedFailureReason)
+            print(err.localizedFailureReason)
         } else {
-            println ("saved succesfully \(NSDate()),\(location.coordinate.longitude),\(location.coordinate.latitude)")
+            print ("saved succesfully \(NSDate()),\(location.coordinate.longitude),\(location.coordinate.latitude)")
             let alertController = UIAlertController(title: "Location saved.", message: "on \(NSDate())", preferredStyle: .Alert)
             let OKAction = UIAlertAction(title: "OK", style: .Default) { (_) in }
             alertController.addAction(OKAction)
             
             self.presentViewController(alertController, animated: true) {
-                println("showed Alert")
+                print("showed Alert")
             }
         }
         
@@ -82,7 +86,7 @@ class LandingController: UIViewController, CLLocationManagerDelegate {
             //println(location)
             
             if error != nil {
-                println("Reverse geocoder failed with error" + error.localizedDescription)
+                print("Reverse geocoder failed with error" + error.localizedDescription)
                 return
             }
             
@@ -94,23 +98,23 @@ class LandingController: UIViewController, CLLocationManagerDelegate {
             }
             else {
                 loc.addr = "unknown location"
-                println("Problem with the data received from geocoder")
+                print("Problem with the data received from geocoder")
             }
         })
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
-        println("old:\(oldLocation.description), new:\(newLocation.description)")
+        print("old:\(oldLocation.description), new:\(newLocation.description)")
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        println(error.description)
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print(error.description)
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
         if let location = locationManager.location{
             locationManager.stopUpdatingLocation()
-            println("locationViewController: lat: \(location.coordinate.latitude), long: \(location.coordinate.longitude)")
+            print("locationViewController: lat: \(location.coordinate.latitude), long: \(location.coordinate.longitude)")
             addLocation(location)
         }
     }

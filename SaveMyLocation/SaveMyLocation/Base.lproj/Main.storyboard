@@ -6,6 +6,22 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--DetailNavigatorController-->
+        <scene sceneID="0zY-4X-bhD">
+            <objects>
+                <navigationController title="DetailNavigatorController" id="pn6-2H-Rsj" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1fZ-rJ-qqz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="aLl-iW-usk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eQW-NM-JUf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3862.5" y="465"/>
+        </scene>
         <!--Saved Locations Map-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -48,6 +64,7 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="0fM-g7-TL5"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="aee-sY-met" id="7Fx-Gv-QhP"/>
@@ -64,7 +81,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-2584.5" y="483"/>
+            <point key="canvasLocation" x="-2935.5" y="465"/>
         </scene>
         <!--add & edit-->
         <scene sceneID="SBI-Dr-iXL">
@@ -280,20 +297,36 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6m5-N9-SsR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4110" y="-167"/>
+            <point key="canvasLocation" x="-4524" y="-309"/>
         </scene>
-        <!--Split View Controller-->
+        <!--locations history-->
         <scene sceneID="qWo-sd-FFt">
             <objects>
-                <splitViewController id="MkV-ev-sBZ" sceneMemberID="viewController">
+                <splitViewController title="locations history" id="MkV-ev-sBZ" sceneMemberID="viewController">
                     <connections>
-                        <segue destination="YIh-rP-ycl" kind="relationship" relationship="masterViewController" id="xiO-LR-zKU"/>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="detailViewController" id="5FN-qQ-liX"/>
+                        <segue destination="fQf-gh-7aB" kind="relationship" relationship="masterViewController" id="lPY-V6-0cj"/>
+                        <segue destination="pn6-2H-Rsj" kind="relationship" relationship="detailViewController" id="3So-WC-ja4"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bEw-Yg-5DU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3394.5" y="-167"/>
+            <point key="canvasLocation" x="-3862.5" y="-309"/>
+        </scene>
+        <!--ListNavigatorController-->
+        <scene sceneID="MAj-yX-UwX">
+            <objects>
+                <navigationController title="ListNavigatorController" id="fQf-gh-7aB" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="sEa-Ga-35U">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="YIh-rP-ycl" kind="relationship" relationship="rootViewController" id="NJ1-Xs-XCn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1VF-a0-9LZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3160.5" y="-309"/>
         </scene>
         <!--Location View Controller-->
         <scene sceneID="Oma-Eh-sIf">
@@ -356,63 +389,14 @@
                             <outlet property="delegate" destination="YIh-rP-ycl" id="iwH-9c-M0J"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="NMi-WJ-ncB">
-                        <nil key="title"/>
+                    <navigationItem key="navigationItem" id="bOa-rR-icl">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="LjV-6L-2HF"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="organize" id="hbf-tP-5es"/>
                     </navigationItem>
-                    <connections>
-                        <outlet property="UtilView" destination="7HJ-de-05w" id="Zll-rU-FGa"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f7V-wj-boc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="7HJ-de-05w" userLabel="UtilView">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="568"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTc-68-R5J">
-                            <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                            <color key="backgroundColor" red="0.65794284270000003" green="0.93748027150000002" blue="0.61954383769999999" alpha="0.85999999999999999" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                            <state key="normal" title="Show By Address">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <variation key="widthClass=compact" fixedFrame="YES">
-                                <rect key="frame" x="134" y="269" width="132" height="30"/>
-                            </variation>
-                            <connections>
-                                <action selector="ToggleList:" destination="YIh-rP-ycl" eventType="touchUpInside" id="3Z9-iz-f0d"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNO-5k-Jr2">
-                            <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                            <color key="backgroundColor" red="1" green="0.43220466099999999" blue="0.35468720520000002" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
-                            <state key="normal" title="Save Location">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <variation key="widthClass=compact" fixedFrame="YES">
-                                <rect key="frame" x="137" y="269" width="126" height="30"/>
-                            </variation>
-                            <connections>
-                                <action selector="SaveLoc:" destination="YIh-rP-ycl" eventType="touchUpInside" id="zfQ-En-FeV"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <variation key="default">
-                        <mask key="subviews">
-                            <exclude reference="tTc-68-R5J"/>
-                            <exclude reference="cNO-5k-Jr2"/>
-                        </mask>
-                    </variation>
-                    <variation key="widthClass=compact">
-                        <mask key="subviews">
-                            <include reference="tTc-68-R5J"/>
-                            <include reference="cNO-5k-Jr2"/>
-                        </mask>
-                    </variation>
-                </view>
             </objects>
-            <point key="canvasLocation" x="-3394.5" y="544"/>
+            <point key="canvasLocation" x="-2479.5" y="-304"/>
         </scene>
     </scenes>
     <resources>

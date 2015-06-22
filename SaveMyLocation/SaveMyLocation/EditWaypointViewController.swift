@@ -8,11 +8,26 @@
 
 import UIKit
 import MobileCoreServices
+import CoreData
 
-class EditWaypointViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate
+class EditWaypointViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
+    NSFetchedResultsControllerDelegate
 {
     // MARK: - Public API
 
+    let managedObjectContext =
+    (UIApplication.sharedApplication().delegate
+        as! AppDelegate).managedObjectContext
+    
+    private lazy var locationDataController: LocationDataController = {
+        
+        let controller = LocationDataController(managedObjectContext: self.managedObjectContext!)
+        controller.delegate = self
+        
+        return controller
+        }()
+
+    
     var waypointToEdit: EditableWaypoint? { didSet { updateUI() } }
 
     // MARK: - Private Implementation
@@ -25,7 +40,8 @@ class EditWaypointViewController: UIViewController, UITextFieldDelegate, UIImage
     
     
     @IBAction func done(sender: UIBarButtonItem) {
-        println("presentingViewController:\(presentingViewController)")
+        print("presentingViewController:\(presentingViewController)")
+        locationDataController.updateLocation(self.waypointToEdit!)
         presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -76,7 +92,7 @@ class EditWaypointViewController: UIViewController, UITextFieldDelegate, UIImage
         }
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject]) {
         var image = info[UIImagePickerControllerEditedImage] as? UIImage
         if image == nil {
             image = info[UIImagePickerControllerOriginalImage] as? UIImage
@@ -165,7 +181,7 @@ extension EditWaypointViewController
 {
     func updateImage() {
         if let url = waypointToEdit?.imageURL {
-            let qos = Int(QOS_CLASS_USER_INITIATED.value)
+            let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
             dispatch_async(dispatch_get_global_queue(qos, 0)) { [weak self] in
                 if let imageData = NSData(contentsOfURL: url) {
                     if url == self?.waypointToEdit?.imageURL {

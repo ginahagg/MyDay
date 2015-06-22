@@ -36,7 +36,7 @@ class LocationManagedObject : NSManagedObject {
             //println(location)
             
             if error != nil {
-                println("Reverse geocoder failed with error" + error.localizedDescription)
+                print("Reverse geocoder failed with error" + error.localizedDescription)
                 return
             }
             
@@ -48,7 +48,7 @@ class LocationManagedObject : NSManagedObject {
             }
             else {
                 loc.addr = "unknown location"
-                println("Problem with the data received from geocoder")
+                print("Problem with the data received from geocoder")
             }
         })
 
@@ -59,12 +59,16 @@ class LocationManagedObject : NSManagedObject {
         
         var error: NSError?
         
-        managedObjectContext.save(&error)
+        do {
+            try managedObjectContext.save()
+        } catch var error1 as NSError {
+            error = error1
+        }
         
         if let err = error {
-            println(err.localizedFailureReason)
+            print(err.localizedFailureReason)
         } else {
-            println ("saved succesfully \(NSDate()),\(location.coordinate.longitude),\(location.coordinate.latitude)")
+            print ("saved succesfully \(NSDate()),\(location.coordinate.longitude),\(location.coordinate.latitude)")
         }
         
     }

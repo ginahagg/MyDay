@@ -19,30 +19,30 @@ class FUICellBackgroundView: UIView {
     func initialize (){
         if (self == FUICellBackgroundView.self()){
             
-            var appearance = FUICellBackgroundView.appearance()
+            let appearance = FUICellBackgroundView.appearance()
             
             appearance.cornerRadius = 3.0
             appearance.separatorColor = UIColor.clearColor()
             appearance.separatorHeight = 1.0
-            println("setting appearance \(appearance.cornerRadius)")
+            print("setting appearance \(appearance.cornerRadius)")
             self.opaque = false
-            self.autoresizingMask = UIViewAutoresizing.FlexibleWidth|UIViewAutoresizing.FlexibleHeight
+            self.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         }
     }
     
     
     override func drawRect(aRect: CGRect){
-        println("drawing Rect")
-        var c = UIGraphicsGetCurrentContext()
+        print("drawing Rect")
+        let c = UIGraphicsGetCurrentContext()
     
-        var lineWidth : CGFloat = 1.0
+        let lineWidth : CGFloat = 1.0
         CGContextSetStrokeColorWithColor(c, UIColor.grayColor().CGColor)
         CGContextSetLineWidth(c, lineWidth)
         CGContextSetAllowsAntialiasing(c, true)
         CGContextSetShouldAntialias(c, true)
     
-        var radii = CGSizeMake(self.cornerRadius, self.cornerRadius)
-        var bezierPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners:self.roundedCorners , cornerRadii: radii)
+        let radii = CGSizeMake(self.cornerRadius, self.cornerRadius)
+        let bezierPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners:self.roundedCorners , cornerRadii: radii)
         
         CGContextSaveGState(c)
         CGContextAddPath(c, bezierPath.CGPath)

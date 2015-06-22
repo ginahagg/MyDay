@@ -8,12 +8,15 @@
 
 import UIKit
 import MapKit
+import CoreData
 
-class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentationControllerDelegate
+class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentationControllerDelegate, NSFetchedResultsControllerDelegate
 {
     // MARK: - Outlets
-
-    var wayPoints = NSArray()
+    
+    
+    var wayPoints = NSMutableArray()
+    var storedWayPoints = [Location]()
     
     var zoomLevel: Int {
         get {
@@ -33,7 +36,22 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
             self.mapView.setRegion(MKCoordinateRegionMake(centerCoordinate!, span), animated: animated)
         }
     }
+    
+    
+    // MARK: - CoreData
+    
+    var fetchedResultsController = NSFetchedResultsController()
+    let managedObjectContext =
+    (UIApplication.sharedApplication().delegate
+        as! AppDelegate).managedObjectContext
 
+    private lazy var locationDataController: LocationDataController = {
+        
+        let controller = LocationDataController(managedObjectContext: self.managedObjectContext!)
+        controller.delegate = self
+        
+        return controller
+    }()
     
     @IBOutlet weak var mapView: MKMapView! {
         didSet {
@@ -61,7 +79,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
     // MARK: - Waypoints
     
     private func clearWaypoints() {
-        if mapView?.annotations != nil { mapView.removeAnnotations(mapView.annotations as! [MKAnnotation]) }
+        if mapView?.annotations != nil { mapView.removeAnnotations(mapView.annotations as [MKAnnotation]) }
     }
     
     private func handleWaypoints(waypoints: [GPX.Waypoint]) {
@@ -69,70 +87,88 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         mapView.showAnnotations(waypoints, animated: true)
     }
     
-    private func addWayPoints(){
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
+        let waypoint = annotation as? GPX.Waypoint
+        if annotation is MKUserLocation {
+            //return nil so map view draws "blue dot" for standard user location
+            return nil
+        }
+        let title = waypoint!.description
+        let reuseId = "pin"
         
-        if (self.wayPoints.count > 0){
-            var last1: AnyObject? = wayPoints.lastObject
-            if let last = last1 as? Location {
-                self.centerCoordinate = CLLocationCoordinate2DMake(CLLocationDegrees(last.latitude), CLLocationDegrees(last.longitude))
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: waypoint, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.animatesDrop = true
+            let rightButton = UIButton(type: UIButtonType.DetailDisclosure) as UIButton
+            pinView!.rightCalloutAccessoryView = rightButton
+            
+            if (!title.isEmpty && (title.rangeOfString("dropped") != nil)) {
+                pinView!.pinColor = .Purple
             }
-            for (locc)  in self.wayPoints{
-                if let loc = locc[0] as? Location {
-                    println("\(loc.addr),\(loc.date)")
-                    let waypoint = EditableWaypoint(latitude: loc.latitude as Double, longitude: loc.longitude
-                        as Double)
-                    waypoint.name = loc.addr
-                    mapView.addAnnotation(waypoint)
-                }
+            else{
+                pinView!.pinColor = .Green
             }
         }
+        else {
+            if (!title.isEmpty && (title.rangeOfString("dropped") != nil)) {
+                pinView!.pinColor = .Purple
+            }
+            pinView!.annotation = waypoint
+        }
+        
+        return pinView
+    }
+    
+    private func addWayPoints(){
+        if (self.storedWayPoints.count > 0){
+            for (loc)  in storedWayPoints{
+                let waypoint = EditableWaypoint(latitude: Double(loc.latitude), longitude: Double(loc.longitude))
+                waypoint.storeId = loc.objectID
+                waypoint.name = loc.addr
+                waypoint.info = "\(loc.date)"
+                self.wayPoints.addObject(waypoint)
+                /*var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier("pin") as? MKPinAnnotationView
+                if pinView == nil {
+                    pinView = MKPinAnnotationView(annotation: waypoint, reuseIdentifier: "pin")
+                    pinView!.canShowCallout = true
+                    pinView!.animatesDrop = true
+                    pinView!.pinColor = .Purple
+                }
+                else {
+                    pinView!.pinColor = MKPinAnnotationColor.Green
+                    pinView!.annotation = waypoint
+                }*/
+               // let waypoint = wp as! EditableWaypoint
+                mapView.addAnnotation(waypoint)
+            }
+        }
+        
     }
     
     @IBAction func addWaypoint(sender: UILongPressGestureRecognizer) {
         if sender.state == UIGestureRecognizerState.Began {
-            println("i recognize press")
+            print("i recognize press")
             let coordinate = mapView.convertPoint(sender.locationInView(mapView), toCoordinateFromView: mapView)
             let waypoint = EditableWaypoint(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            waypoint.name = "Dropped"
+            EditableWaypoint.getAddressForSave(waypoint)
+            waypoint.name = "dropped - \(waypoint.addr)"
+            waypoint.info = "\(NSDate())"
             mapView.addAnnotation(waypoint)
-            //saveWaypoint(waypoint)
+            self.wayPoints.addObject(waypoint)
+            locationDataController.addLocation(waypoint)
         }
     }
     
     // MARK: - MKMapViewDelegate
-    
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
-        var view = mapView.dequeueReusableAnnotationViewWithIdentifier(Constants.AnnotationViewReuseIdentifier)
-        
-        if view == nil {
-            view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: Constants.AnnotationViewReuseIdentifier)
-            view.canShowCallout = true
-        } else {
-            view.annotation = annotation
-        }
-        
-        view.draggable = annotation is EditableWaypoint
-        
-        view.leftCalloutAccessoryView = nil
-        view.rightCalloutAccessoryView = nil
-        if let waypoint = annotation as? GPX.Waypoint {
-            if waypoint.thumbnailURL != nil {
-                view.leftCalloutAccessoryView = UIButton(frame: Constants.LeftCalloutFrame)
-            }
-            if annotation is EditableWaypoint {
-                view.rightCalloutAccessoryView = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
-            }
-        }
-        
-        return view
-    }
     
     // this had to be adjusted slightly when we added editable waypoints
     // we can no longer depend on the thumbnailURL being set at "annotation view creation time"
     // so here we just check to see if there's a thumbnail URL
     // and, if so, we can lazily create the leftCalloutAccessoryView if needed
     
-    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         if let waypoint = view.annotation as? GPX.Waypoint {
             if let url = waypoint.thumbnailURL {
                 if view.leftCalloutAccessoryView == nil {
@@ -150,7 +186,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
         }
     }
     
-    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if (control as? UIButton)?.buttonType == UIButtonType.DetailDisclosure {
             mapView.deselectAnnotation(view.annotation, animated: false)
             performSegueWithIdentifier(Constants.EditWaypointSegue, sender: view)
@@ -206,9 +242,52 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
 
     // MARK: - View Controller Lifecycle
     
+    func fetchLocations(){
+        /*let entity = NSEntityDescription.entityForName("Location", inManagedObjectContext: self.managedObjectContext!)*/
+        let fetchRequest = NSFetchRequest(entityName: "Location")
+        fetchRequest.sortDescriptors = nil
+        fetchRequest.propertiesToGroupBy = ["addr","latitude", "longitude", "date", "info", "pin", "photo"]
+        fetchRequest.resultType = NSFetchRequestResultType.DictionaryResultType
+        //fetchRequest.propertiesToFetch = ["latitude", "longitude"]
+        //fetchRequest.returnsDistinctResults = true
+        let results = self.managedObjectContext?.executeFetchRequest(fetchRequest) as! [NSDictionary]
+        if (results.count>0){
+            for res in results{
+                let addr = res.valueForKey("addr") as! String
+                let lat = res.valueForKey("latitude") as! Double
+                let lng = res.valueForKey("longitude") as! Double
+                let pin = res.valueForKey("pin") as! String
+                let waypoint = EditableWaypoint(latitude: lat, longitude: lng)
+                waypoint.name = addr
+                self.wayPoints.addObject(waypoint)
+            }
+        }
+        
+    }
+    
+    func buildWayPoints(results: [NSDictionary]){
+        if (results.count>0){
+            for res in results{
+                let addr = res.valueForKey("addr") as! String
+                let lat = res.valueForKey("latitude") as! Double
+                let lng = res.valueForKey("longitude") as! Double
+                let pin = res.valueForKey("pin") as! String
+                let waypoint = EditableWaypoint(latitude: lat, longitude: lng)
+                waypoint.name = addr
+                self.wayPoints.addObject(waypoint)
+            }
+        }
+
+    }
+    
     override func viewDidLoad() {
+        print("gpxviewcontroller viewdidload")
         super.viewDidLoad()
-        println("GPXViewController entered")
+        self.fetchedResultsController.delegate = self
+        self.mapView.delegate = self
+        self.mapView.showsUserLocation = true
+        let results = locationDataController.fetchLocationsByAddr()
+        buildWayPoints(results)
         addWayPoints()
         //self.centerCoordinate = CLLocationCoordinate2DMake(CLLocationDegrees(centerLat), CLLocationDegrees(centerLng))
         self.zoomLevel = 10
@@ -243,7 +322,7 @@ class GPXViewController: UIViewController, MKMapViewDelegate, UIPopoverPresentat
 extension UIViewController {
     var contentViewController: UIViewController {
         if let navcon = self as? UINavigationController {
-            return navcon.visibleViewController
+            return navcon.visibleViewController!
         } else {
             return self
         }

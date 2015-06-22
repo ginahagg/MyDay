@@ -50,7 +50,7 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var title = self.navigationItem.title!
+        let title = self.navigationItem.title!
         self.navigationItem.title = nil
         self.navigationItem.title = title
         self.title = title
@@ -60,31 +60,31 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
         var centerLat : NSNumber = 37.33233141
         var centerLng : NSNumber = -122.0312186
         let fetchRequest = NSFetchRequest(entityName: "Location")
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Location] {
+        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest) as? [Location] {
             var results = fetchResults
-            results.sort({$0.date.timeIntervalSinceNow > $1.date.timeIntervalSinceNow})
+            results.sortInPlace({$0.date.timeIntervalSinceNow > $1.date.timeIntervalSinceNow})
             
             if (results.count > 0){
                let last = results.last!
                 centerLat = last.latitude
                 centerLng = last.longitude
             }
-            println("\(fetchResults.count) records\n")
+            print("\(fetchResults.count) records\n")
             for rec in results{
                 //var moodInt:Int = rec.mood as Int
-                var Dt : NSDate = rec.date
+                let Dt : NSDate = rec.date
                 let formatter = NSDateFormatter()
                 formatter.dateStyle = .MediumStyle
                 formatter.timeStyle = .MediumStyle
                 var date = formatter.stringFromDate(Dt)
-                println("location: \(rec.addr),\(rec.latitude), \(rec.longitude)")
+                print("location: \(rec.addr),\(rec.latitude), \(rec.longitude)")
                 //println("lat: \(date) for \(rec.latitude), \(rec.longitude)")
                 addAnnotation(CLLocationDegrees(rec.latitude), lng: CLLocationDegrees(rec.longitude))
             }
             
         }
         else {
-            println("no records")
+            print("no records")
         }
         self.centerCoordinate = CLLocationCoordinate2DMake(CLLocationDegrees(centerLat), CLLocationDegrees(centerLng))
         self.zoomLevel = 10
@@ -96,10 +96,10 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
         // Dispose of any resources that can be recreated.
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
         if let location = locationManager.location{
             locationManager.stopUpdatingLocation()
-            println("lat: \(location.coordinate.latitude), long: \(location.coordinate.longitude)")
+            print("lat: \(location.coordinate.latitude), long: \(location.coordinate.longitude)")
             self.title = "Location saved May 29, 2015"
             addAnnotation(location.coordinate.latitude, lng: location.coordinate.longitude)
             saveLocation(location)
@@ -112,9 +112,9 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
         let loc = CLLocationCoordinate2DMake(lat, lng)
         
         let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lngDelta)
-        var region = MKCoordinateRegionMake(loc, span)
+        let region = MKCoordinateRegionMake(loc, span)
         self.mapView.setRegion(region, animated: true)
-        var locPt = MKPointAnnotation()
+        let locPt = MKPointAnnotation()
         locPt.coordinate = loc
         locPt.title = "You set this location"
         locPt.subtitle = "\(NSDate())"
@@ -143,7 +143,7 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
 
         pinView!.leftCalloutAccessoryView = UIButton(frame: Constants.LeftCalloutFrame)
         
-        pinView!.rightCalloutAccessoryView = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
+        pinView!.rightCalloutAccessoryView = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as UIButton
         
         return pinView
     }
@@ -166,12 +166,16 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
         getAddressForSave(lng, lat: lat, loc: loc)
         var error: NSError?
         
-        managedObjectContext?.save(&error)
+        do {
+            try managedObjectContext?.save()
+        } catch var error1 as NSError {
+            error = error1
+        }
         
         if let err = error {
-            println(err.localizedFailureReason)
+            print(err.localizedFailureReason)
         } else {
-            println ("saved succesfully \(NSDate()),\(location.coordinate.longitude),\(location.coordinate.latitude)")
+            print ("saved succesfully \(NSDate()),\(location.coordinate.longitude),\(location.coordinate.latitude)")
         }
         
     }
@@ -187,7 +191,7 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
             //println(location)
             
             if error != nil {
-                println("Reverse geocoder failed with error" + error.localizedDescription)
+                print("Reverse geocoder failed with error" + error.localizedDescription)
                 return
             }
             
@@ -199,7 +203,7 @@ class ViewController: UIViewController , CLLocationManagerDelegate{
             }
             else {
                 loc.addr = "unknown location"
-                println("Problem with the data received from geocoder")
+                print("Problem with the data received from geocoder")
             }
         })
     }

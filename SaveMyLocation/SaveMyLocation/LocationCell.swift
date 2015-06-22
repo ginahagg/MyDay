@@ -17,7 +17,7 @@ class LocationCell: UITableViewCell {
     
     func configureFlatCellWithColor(color:UIColor,selectedColor:UIColor, textColor: UIColor,
         selectedTextColor: UIColor){
-            configureFlatCellWithColor(color,selectedColor:selectedColor, textColor:textColor, selectedTextColor:selectedTextColor, roundingCorners: UIRectCorner(0))
+            configureFlatCellWithColor(color,selectedColor:selectedColor, textColor:textColor, selectedTextColor:selectedTextColor, roundingCorners: UIRectCorner(rawValue: 0))
     }
     
     func configureFlatCellWithColor(color:UIColor,selectedColor:UIColor, textColor: UIColor, selectedTextColor: UIColor, roundingCorners:(UIRectCorner) ){

@@ -7,6 +7,7 @@
 //
 
 import MapKit
+import CoreData
 
 class EditableWaypoint: GPX.Waypoint
 {
@@ -21,6 +22,40 @@ class EditableWaypoint: GPX.Waypoint
     
     override var thumbnailURL: NSURL? { return imageURL }
     override var imageURL: NSURL? { return links.first?.url }
+    
+    var storeId: NSManagedObjectID?
+    
+    var addr: String = ""
+    
+    static func getAddressForSave(waypoint: EditableWaypoint){
+        //var longitude :CLLocationDegrees = -122.0312186
+        //var latitude :CLLocationDegrees = 37.33233141
+        
+        var location = CLLocation(latitude: waypoint.coordinate.latitude, longitude: waypoint.coordinate.longitude) //changed!!!
+        //println(location)
+        
+        CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
+            //println(location)
+            
+            if error != nil {
+                print("Reverse geocoder failed with error" + error.localizedDescription)
+                return
+            }
+            
+            if placemarks.count > 0 {
+                let pm = placemarks[0] as! CLPlacemark
+                var pms = "\(pm.thoroughfare) \(pm.subLocality), \(pm.locality)"
+                waypoint.addr = pms
+                
+            }
+            else {
+                waypoint.addr = "unknown location"
+                print("Problem with the data received from geocoder")
+            }
+        })
+    }
+
+
 }
 
 extension GPX.Waypoint: MKAnnotation
@@ -31,9 +66,10 @@ extension GPX.Waypoint: MKAnnotation
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
-    var title: String! { return name }
+    var title: String? { return name }
     
-    var subtitle: String! { return info }
+    var subtitle: String? { return info }
+    
     
     // MARK: - Links to Images
 
@@ -48,4 +84,6 @@ extension GPX.Waypoint: MKAnnotation
         }
         return nil
     }
+    
+    
 }

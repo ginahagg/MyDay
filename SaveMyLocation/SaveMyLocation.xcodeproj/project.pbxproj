@@ -20,6 +20,7 @@
 		F279A12D1B30D29F00E65F90 /* GPX.swift in Sources */ = {isa = PBXBuildFile; fileRef = F279A12C1B30D29F00E65F90 /* GPX.swift */; };
 		F2A093D61B2A5C0700D3CF33 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A093D51B2A5C0700D3CF33 /* LocationCell.swift */; };
 		F2AB76C01B26C13A003F49C1 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AB76BF1B26C13A003F49C1 /* LocationViewController.swift */; };
+		F2B480631B33851500ED748C /* LocationDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B480621B33851500ED748C /* LocationDataController.swift */; };
 		F2C08CAA1B19694800F6196E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C08CA91B19694800F6196E /* AppDelegate.swift */; };
 		F2C08CAD1B19694800F6196E /* SaveMyLocation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F2C08CAB1B19694800F6196E /* SaveMyLocation.xcdatamodeld */; };
 		F2C08CAF1B19694800F6196E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C08CAE1B19694800F6196E /* ViewController.swift */; };
@@ -68,6 +69,7 @@
 		F279A12C1B30D29F00E65F90 /* GPX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPX.swift; sourceTree = "<group>"; };
 		F2A093D51B2A5C0700D3CF33 /* LocationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		F2AB76BF1B26C13A003F49C1 /* LocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		F2B480621B33851500ED748C /* LocationDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDataController.swift; sourceTree = "<group>"; };
 		F2C08CA41B19694800F6196E /* SaveMyLocation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SaveMyLocation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2C08CA81B19694800F6196E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2C08CA91B19694800F6196E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				F2C08CA91B19694800F6196E /* AppDelegate.swift */,
 				F2C08CAE1B19694800F6196E /* ViewController.swift */,
 				F2AB76BF1B26C13A003F49C1 /* LocationViewController.swift */,
+				F2B480621B33851500ED748C /* LocationDataController.swift */,
 				F23B03781B280A9900BC124E /* UIColorExtension.swift */,
 				F23975231B27ABF00071F898 /* GroupCell.swift */,
 				F2A093D51B2A5C0700D3CF33 /* LocationCell.swift */,
@@ -219,6 +222,7 @@
 		F2C08C9C1B19694800F6196E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Gina Hagg";
 				TargetAttributes = {
@@ -296,6 +300,7 @@
 				F23975241B27ABF00071F898 /* GroupCell.swift in Sources */,
 				F2C08CAF1B19694800F6196E /* ViewController.swift in Sources */,
 				F2DAC10E1B324F7200A11CB6 /* FUICellBackgroundView.swift in Sources */,
+				F2B480631B33851500ED748C /* LocationDataController.swift in Sources */,
 				F2DAC1121B329C1200A11CB6 /* Location.swift in Sources */,
 				F21844971B2D086D006B7200 /* LandingController.swift in Sources */,
 				F2C08CAA1B19694800F6196E /* AppDelegate.swift in Sources */,
@@ -393,7 +398,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -430,7 +435,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -446,10 +451,11 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SaveMyLocation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -464,10 +470,11 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SaveMyLocation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

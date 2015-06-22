@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import CoreLocation
 
-class LocationViewController: UITableViewController,CLLocationManagerDelegate, NSFetchedResultsControllerDelegate {
+class LocationViewController: UITableViewController,CLLocationManagerDelegate, NSFetchedResultsControllerDelegate, UISplitViewControllerDelegate {
     /* colorhexa site colors
 #E43451 reddish
     #EB774C orange
@@ -18,6 +18,15 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
     #C20826 darker red
 */
     var fetchedResultsController = NSFetchedResultsController()
+    
+    private lazy var locationDataController: LocationDataController = {
+        
+        let controller = LocationDataController(managedObjectContext: self.managedObjectContext!)
+        controller.delegate = self
+        
+        return controller
+        }()
+
     let locationManager = CLLocationManager()
     
     struct colorst {
@@ -36,37 +45,32 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
     
     var isByDate = true
     
-    var locDict = NSMutableDictionary()
-    var locDictByAddr = NSMutableDictionary()
     let managedObjectContext =
     (UIApplication.sharedApplication().delegate
         as! AppDelegate).managedObjectContext
-
+    
     @IBOutlet var UtilView: UIView!
-    @IBAction func ToggleList(sender: UIButton) {
+    
+    
+    @IBAction func ToggleList(sender: UIBarButtonItem) {
         isByDate = isByDate ? false : true
-        sender.setTitle(isByDate ? "Show By Address" : "Show By Date", forState: UIControlState.Normal)
         tableView.reloadData()
 
     }
     
     
     @IBAction func SaveLoc(sender: UIButton) {
-        println("savinglocation")
+        print("savinglocation")
         self.locationManager.startUpdatingLocation()
     }
     
    
     
     func addLocation(location : CLLocation) {
-        println("adding location")
+        print("adding location")
         let entityDescription =
         NSEntityDescription.entityForName("Location",
             inManagedObjectContext: managedObjectContext!)
-        
-        //SO STUPID! coredata model for lat/lng is double, but i need NSNumber wrapping because declaring lat/lng as double
-        //in Location model class fails. i need to declare them as NSNumber. Thus the wrapping..IDIOTs
-        
         let loc = Location(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
         let lat = location.coordinate.latitude
         let lng = location.coordinate.longitude
@@ -76,17 +80,18 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         getAddressForSave(lng, lat: lat, loc: loc)
         var error: NSError?
         
-        managedObjectContext?.save(&error)
-        
-        if let err = error {
-            println(err.localizedFailureReason)
-        } else {
-            println ("saved succesfully \(NSDate()),\(location.coordinate.longitude),\(location.coordinate.latitude)")
+        do {
+            try managedObjectContext?.save()
+        } catch var error1 as NSError {
+            error = error1
         }
         
-        populateByDate(loc)
+        if let err = error {
+            print(err.localizedFailureReason)
+        } else {
+            print ("saved succesfully \(NSDate()),\(location.coordinate.longitude),\(location.coordinate.latitude)")
+        }
         
-        self.tableView.reloadData()
     }
     
     func getAddressForSave(lng:CLLocationDegrees, lat:CLLocationDegrees, loc : Location){
@@ -100,7 +105,7 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
             //println(location)
             
             if error != nil {
-                println("Reverse geocoder failed with error" + error.localizedDescription)
+                print("Reverse geocoder failed with error" + error.localizedDescription)
                 return
             }
             
@@ -112,23 +117,23 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
             }
             else {
                 loc.addr = "unknown location"
-                println("Problem with the data received from geocoder")
+                print("Problem with the data received from geocoder")
             }
         })
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateToLocation newLocation: CLLocation!, fromLocation oldLocation: CLLocation!) {
-        println("old:\(oldLocation.description), new:\(newLocation.description)")
+        print("old:\(oldLocation.description), new:\(newLocation.description)")
     }
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        println(error.description)
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print(error.description)
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
         if let location = locationManager.location{
             locationManager.stopUpdatingLocation()
-            println("locationViewController: lat: \(location.coordinate.latitude), long: \(location.coordinate.longitude)")
+            print("locationViewController: lat: \(location.coordinate.latitude), long: \(location.coordinate.longitude)")
             addLocation(location)
         }
     }
@@ -136,17 +141,22 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
     override func viewDidLoad() {
         /*var title = self.navigationItem.title
         self.navigationItem.title = nil
-        self.navigationItem.title = "Show Locations by Address"*/
-        //self.navigationItem.setLeftBarButtonItem(<#item: UIBarButtonItem?#>, animated: <#Bool#>)
-        //self.navigationItem.setRightBarButtonItem(<#item: UIBarButtonItem?#>, animated: <#Bool#>)
+        self.navigationItem.title = "Show Locations by Address"
+        let backbutton = UIBarButtonItem()
+        backbutton.title = "Back"
+        self.navigationItem.setLeftBarButtonItem(backbutton, animated: true)
+        let barbutton = UIBarButtonItem()
+        barbutton.title = "Toggle"
+        self.navigationItem.setRightBarButtonItem(barbutton, animated: true)*/
+        splitViewController?.delegate = self
         self.fetchedResultsController.delegate = self
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         self.locationManager.requestWhenInUseAuthorization()
         self.tableView.layer.zPosition++
+        //locationDataController.fetchLocationsBySection()
         fetchLocations()
-        //fetchLocationsByCriteria("Date")
-        println("viewdidload: isByDate: \(isByDate)")
+        print("viewdidload: isByDate: \(isByDate)")
         
     }
     
@@ -154,56 +164,12 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         let fetchRequest = NSFetchRequest(entityName: "Location")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedObjectContext!, sectionNameKeyPath: "section", cacheName: nil)
-        fetchedResultsController.performFetch(nil)
-    }
-    
-    func fetchLocationsByCriteria(crit : String){
-            let fetchRequest = NSFetchRequest(entityName: "Location")
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date",ascending:false)]
-            var locs = [Location]()
-            let formatter = NSDateFormatter()
-            formatter.dateStyle = .ShortStyle
-            formatter.timeStyle = NSDateFormatterStyle.NoStyle
-            if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Location]
-            {
-                var locations = fetchResults
-                //locations.sort({$0.date.timeIntervalSinceNow < $1.date.timeIntervalSinceNow})
-                var locs = NSMutableArray()
-                var ct = 0
-                for loc in locations {
-                    var dt = loc.date
-                    populateByDate(loc)
-                }
-
-            }
-            else {
-                println("no records")
-            }
-    }
-    
-    
-    
-    func populateByDate(loc: Location) -> (index: Int, section: String , exists: Bool){
-        var dt = loc.date
-        var locs = NSMutableArray()
-        var keys = locDict.allKeys as! [String]
-        var isNewSection = false
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .ShortStyle
-        formatter.timeStyle = NSDateFormatterStyle.NoStyle
-        var date = formatter.stringFromDate(dt)
-        if find(keys, date) == nil{
-            locs = NSMutableArray()
+        do {
+            try fetchedResultsController.performFetch()
+        } catch _ {
         }
-        else{
-            locs = locDict.valueForKey(date) as! NSMutableArray
-            isNewSection = true
-        }
-        var index = locs.count > 0 ? locs.count : 0
-        locs.insertObject(loc, atIndex: index)
-        locDict[date] = locs
-        return(index,date, isNewSection)
     }
+    
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return fetchedResultsController.sections?.count ?? 0
@@ -220,60 +186,28 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         return sectionInfo[section].name
         
     }
-    
-   /* override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-         println("viewforheader: isByDate: \(isByDate)")
-        let  headerCell = tableView.dequeueReusableCellWithIdentifier("HeaderCell") as! GroupCell
-        var keys = NSArray()
-        if(isByDate){
-            keys = locDict.allKeys
-        }
-        else{
-            keys = locDictByAddr.allKeys
-        }
-        
-        var key = keys[section] as! String
-    
-        headerCell.backgroundColor = colors.fourthColor
 
-        //headerCell.textLabel?.textColor = colors.Yellowish
-        headerCell.textLabel!.text = key
-        return headerCell
-    }*/
-    
-    
-    /*override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         println("numrowsinsection: isByDate: \(isByDate)")
-        var locations = []
-        var keys = NSArray()
-        var key = ""
-        if(isByDate){
-            keys = locDict.allKeys
-            key = keys[section] as! String
-            locations = locDict.valueForKey(key) as! [Location]
-        }
-        else{
-            keys = locDictByAddr.allKeys
-            key = keys[section] as! String
-            locations = locDictByAddr.valueForKey(key) as! [Location]
-
-        }
-        return locations.count
-    }*/
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowMap" {
-            println("showing map")
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+            print("showing map")
+            if let indexPath = self.tableView.indexPathForSelectedRow {
                 var cell = self.tableView.cellForRowAtIndexPath(indexPath)
                 let controller = segue.destinationViewController as! GPXViewController
                 //controller.navigationItem.title = "\(cell!.textLabel!.text!):\(cell!.detailTextLabel!.text!)"
                 //controller.rownum = indexPath.row
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
-                var allVals = self.locDict.allValues
-                println("allVals:")
-                controller.wayPoints = allVals          }
+                
+                print("allVals:")
+                var allVals = fetchedResultsController.fetchedObjects as! [Location]
+                controller.storedWayPoints = allVals
+                let secInfo = fetchedResultsController.sections?[indexPath.section] as! NSFetchedResultsSectionInfo
+                //let row = secInfo[indexPath.section] as NSFetchedResultsSectionInfo
+                let locs = secInfo.objects as! [Location]
+                let loc = locs[indexPath.row]
+                controller.centerCoordinate = CLLocationCoordinate2DMake(CLLocationDegrees(loc.latitude), CLLocationDegrees(loc.longitude))
+                
+            }
         }
     }
     
@@ -286,7 +220,7 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         let dt = loc.date
         let formatter = NSDateFormatter()
         formatter.timeStyle = .ShortStyle
-        formatter.dateStyle = .ShortStyle
+        formatter.dateStyle = .NoStyle
         cell.textLabel!.text = formatter.stringFromDate(loc.date)
         cell.detailTextLabel!.text = loc.addr
         return cell
@@ -317,7 +251,10 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         switch editingStyle {
         case .Delete:
             managedObjectContext?.deleteObject(fetchedResultsController.objectAtIndexPath(indexPath) as! Location)
-            managedObjectContext?.save(nil)
+            do {
+                try managedObjectContext?.save()
+            } catch _ {
+            }
         case .Insert:
             break
         case .None:
@@ -326,7 +263,7 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
         
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: NSManagedObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         
         switch type {
         case NSFetchedResultsChangeType.Insert:
@@ -358,81 +295,6 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
     
     
     
-    
-   /* @IBAction func addButtonPressed(sender: UIBarButtonItem) {
-        
-        let newNumber = NSEntityDescription.insertNewObjectForEntityForName("Number", inManagedObjectContext: managedObjectContext!) as Number
-        
-        newNumber.number = NSNumber(unsignedInt: arc4random_uniform(100))
-        
-        var error: NSError?
-        managedObjectContext?.save(&error)
-        
-    }*/
-    
-    /*override func  tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-         println("cellforrowatindex: isByDate: \(isByDate)")
-        var corners : UIRectCorner = UIRectCorner(0)
-        tableView.layer.cornerRadius = 10
-        if (tableView.style == UITableViewStyle.Grouped) {
-          
-            if (tableView.numberOfRowsInSection(indexPath.section) == 1){
-                corners = UIRectCorner.AllCorners
-            } else if (indexPath.row == 0) {
-                corners = UIRectCorner.TopLeft | UIRectCorner.TopRight;
-            } else if (indexPath.row == tableView.numberOfRowsInSection(indexPath.section) - 1) {
-                corners = UIRectCorner.BottomLeft | UIRectCorner.BottomRight;
-            }
-        }
-        let cell = tableView.dequeueReusableCellWithIdentifier("LocCell") as! UITableViewCell
-       
-        //cell.layer.cornerRadius = 5.0
-        cell.layer.borderWidth = 0.5
-        cell.layer.borderColor = colors.firstPink.CGColor
-        cell.backgroundColor = colors.secondPink
-        let sect = indexPath.section
-        var keys = NSArray()
-        var locations = NSMutableArray()
-        var key = ""
-        var location : Location
-        if (isByDate){
-            keys = locDict.allKeys
-            key = keys[sect] as! String
-            locations = locDict[key] as! NSMutableArray
-            location = locations[indexPath.row] as! Location
-        }
-        else{
-            keys = locDictByAddr.allKeys
-            key = keys[sect] as! String
-            locations = locDictByAddr[key] as! NSMutableArray
-            location = locations[indexPath.row] as! Location
-        }
-        
-        //let lat = CLLocationDegrees(location.latitude)
-        //let lng = CLLocationDegrees(location.longitude)
-        let dt = location.date
-        let formatter = NSDateFormatter()
-        formatter.timeStyle = .ShortStyle
-        formatter.dateStyle = .NoStyle
-        var date = ""
-        //println(date)
-        //getAddressForUI(lng, lat: lat, cell: cell)
-        if isByDate {
-            formatter.dateStyle = .NoStyle
-            date = formatter.stringFromDate(dt)
-            cell.textLabel!.text = date
-            cell.detailTextLabel!.text = location.addr
-        }
-        else{
-            formatter.dateStyle = .NoStyle
-            date = formatter.stringFromDate((dt))
-            cell.textLabel!.text = location.addr
-            cell.detailTextLabel!.text = date
-        }
-        
-        return cell
-    }*/
-    
    /* override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 40))
         footerView.backgroundColor = UIColor.lightGrayColor()
@@ -447,9 +309,9 @@ class LocationViewController: UITableViewController,CLLocationManagerDelegate, N
     
     
     @IBAction func goback (segue: UIStoryboardSegue){
-        println("I have been unwound from \(segue.sourceViewController)")
+        print("I have been unwound from \(segue.sourceViewController)")
         if let sourceController = segue.sourceViewController as? ViewController{
-            println("good")
+            print("good")
             /*if !sourceController.subject.isEmpty{
                 let selectedMood = sourceController.selected
                 var rownum = sourceController.rownum
