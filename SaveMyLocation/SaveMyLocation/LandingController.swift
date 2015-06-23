@@ -31,6 +31,13 @@ class LandingController: UIViewController, CLLocationManagerDelegate {
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         self.locationManager.requestWhenInUseAuthorization()
+        /*let alertController = UIAlertController(title: "View Loaded.", message: "on \(NSDate())", preferredStyle: .Alert)
+        let OKAction = UIAlertAction(title: "OK", style: .Default) { (_) in }
+        alertController.addAction(OKAction)
+        dispatch_async(dispatch_get_main_queue(),{
+            self.presentViewController(alertController, animated: true, completion:nil)
+        })*/
+
     }
 
     
